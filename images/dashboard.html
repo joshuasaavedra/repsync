@@ -1,0 +1,848 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>REPSYNC – Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --orange: #F65100;
+  --orange-light: #FFF0E8;
+  --black: #151515;
+  --gray: #777777;
+  --border: #EEEEEE;
+  --bg: #F8F8F8;
+  --white: #FFFFFF;
+
+  --brand: 'Anton', sans-serif;
+  --display: 'Bricolage Grotesque', sans-serif;
+  --body: 'Instrument Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--black);
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: var(--orange);
+  color: white;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.logo {
+  font-family: var(--brand);
+  font-size: 32px;
+  letter-spacing: .04em;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 50px;
+  padding-left: 10px;
+}
+
+.nav-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  opacity: .7;
+  margin: 15px 10px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 13px 14px;
+  margin-bottom: 6px;
+  border-radius: 8px;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: .2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background: rgba(255,255,255,.2);
+}
+
+.nav-link span {
+  font-size: 18px;
+}
+
+.sidebar-bottom {
+  margin-top: auto;
+}
+
+/* MAIN */
+
+.main {
+  margin-left: 250px;
+  min-height: 100vh;
+}
+
+/* TOPBAR */
+
+.topbar {
+  height: 76px;
+  background: white;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.topbar h2 {
+  font-family: var(--display);
+  font-size: 20px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--orange-light);
+  color: var(--orange);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+
+/* CONTENT */
+
+.content {
+  padding: 35px 40px;
+  max-width: 1500px;
+  margin: auto;
+}
+
+.welcome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.welcome h1 {
+  font-family: var(--display);
+  font-size: 32px;
+  margin-bottom: 5px;
+}
+
+.welcome p {
+  color: var(--gray);
+  font-size: 14px;
+}
+
+.date {
+  color: var(--gray);
+  font-size: 13px;
+}
+
+/* BUTTONS */
+
+.primary-btn {
+  background: var(--orange);
+  color: white;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: .2s;
+}
+
+.primary-btn:hover {
+  background: #D94300;
+}
+
+.secondary-btn {
+  background: white;
+  color: var(--orange);
+  border: 1px solid var(--orange);
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.secondary-btn:hover {
+  background: var(--orange-light);
+}
+
+/* STATS */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+.card {
+  background: white;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.stat-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.stat-icon {
+  width: 42px;
+  height: 42px;
+  background: var(--orange-light);
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+}
+
+.stat-label {
+  color: var(--gray);
+  font-size: 13px;
+}
+
+.stat-number {
+  font-family: var(--display);
+  font-size: 29px;
+  margin: 5px 0;
+}
+
+.stat-caption {
+  color: var(--gray);
+  font-size: 12px;
+}
+
+/* GRID LAYOUT */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.card-title h3 {
+  font-family: var(--display);
+  font-size: 19px;
+}
+
+.card-title a {
+  color: var(--orange);
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* MACROS */
+
+.macro {
+  margin-bottom: 20px;
+}
+
+.macro-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 9px;
+}
+
+.macro-info span:last-child {
+  color: var(--gray);
+}
+
+.progress {
+  height: 9px;
+  background: #EEEEEE;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--orange);
+  border-radius: 20px;
+}
+
+/* WORKOUT */
+
+.workout-box {
+  background: var(--orange-light);
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.workout-box h4 {
+  font-family: var(--display);
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.workout-box p {
+  font-size: 13px;
+  color: var(--gray);
+}
+
+.workout-details {
+  display: flex;
+  gap: 18px;
+  margin-top: 15px;
+  font-size: 12px;
+  color: #555555;
+}
+
+/* WEEKLY SCHEDULE */
+
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.day {
+  text-align: center;
+  padding: 12px 4px;
+  background: #FAFAFA;
+  border-radius: 9px;
+}
+
+.day span {
+  display: block;
+  color: var(--gray);
+  font-size: 11px;
+  margin-bottom: 8px;
+}
+
+.day strong {
+  font-size: 13px;
+}
+
+.day.active {
+  background: var(--orange);
+  color: white;
+}
+
+.day.active span {
+  color: white;
+}
+
+.day.rest {
+  color: #999999;
+}
+
+/* MUSCLE TARGETS */
+
+.muscle-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.muscle {
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 13px;
+}
+
+.muscle strong {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.muscle span {
+  color: var(--gray);
+  font-size: 12px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 1100px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media(max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 15px 18px;
+  }
+
+  .logo {
+    margin: 0 0 15px;
+    font-size: 27px;
+  }
+
+  .nav-label,
+  .sidebar-bottom {
+    display: none;
+  }
+
+  .sidebar nav {
+    display: flex;
+    overflow-x: auto;
+    gap: 5px;
+  }
+
+  .nav-link {
+    flex-shrink: 0;
+    padding: 10px;
+    margin: 0;
+    font-size: 12px;
+  }
+
+  .main {
+    margin-left: 0;
+  }
+
+  .topbar {
+    padding: 0 20px;
+    height: 65px;
+  }
+
+  .content {
+    padding: 25px 18px;
+  }
+
+  .welcome {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .welcome h1 {
+    font-size: 27px;
+  }
+
+  .week {
+    gap: 4px;
+  }
+
+  .day {
+    padding: 10px 2px;
+  }
+}
+
+@media(max-width: 400px) {
+  .stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .stat-number {
+    font-size: 23px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+  <a href="dashboard.html" class="logo">REPSYNC</a>
+
+  <div class="nav-label">MENU</div>
+
+  <nav>
+    <a href="#overview" class="nav-link active">
+      <span>⌂</span> Overview
+    </a>
+
+    <a href="#macros" class="nav-link">
+      <span>◉</span> Macro Tracker
+    </a>
+
+    <a href="#workouts" class="nav-link">
+      <span>♢</span> Workouts
+    </a>
+
+    <a href="#muscles" class="nav-link">
+      <span>◈</span> Muscle Targets
+    </a>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div class="nav-label">ACCOUNT</div>
+
+    <a href="index.html" class="nav-link">
+      <span>↪</span> Log Out
+    </a>
+  </div>
+
+</aside>
+
+
+<!-- MAIN CONTENT -->
+
+<div class="main">
+
+  <!-- TOPBAR -->
+
+  <header class="topbar">
+    <h2>Dashboard</h2>
+
+    <div class="profile">
+      <div class="avatar" id="avatar">U</div>
+      <div>
+        <strong id="profileName">User</strong>
+        <div class="stat-caption">Fitness Member</div>
+      </div>
+    </div>
+  </header>
+
+
+  <main class="content" id="overview">
+
+    <!-- WELCOME -->
+
+    <section class="welcome">
+      <div>
+        <h1>Good day, <span id="welcomeName">there</span>!</h1>
+        <p>Here's your fitness overview. Let's make today count.</p>
+      </div>
+
+      <span class="date" id="todayDate"></span>
+    </section>
+
+
+    <!-- STAT CARDS -->
+
+    <section class="stats">
+
+      <div class="card">
+        <div class="stat-top">
+          <span class="stat-label">Calories consumed</span>
+          <div class="stat-icon">🔥</div>
+        </div>
+        <div class="stat-number">1,245</div>
+        <div class="stat-caption">of 1,800 kcal daily goal</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-top">
+          <span class="stat-label">Protein intake</span>
+          <div class="stat-icon">🥩</div>
+        </div>
+        <div class="stat-number">95g</div>
+        <div class="stat-caption">of 120g daily goal</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-top">
+          <span class="stat-label">Workouts completed</span>
+          <div class="stat-icon">🏋️</div>
+        </div>
+        <div class="stat-number">4 / 5</div>
+        <div class="stat-caption">This week</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-top">
+          <span class="stat-label">Training streak</span>
+          <div class="stat-icon">⚡</div>
+        </div>
+        <div class="stat-number">3 days</div>
+        <div class="stat-caption">Keep building consistency</div>
+      </div>
+
+    </section>
+
+
+    <!-- MACROS AND WORKOUT -->
+
+    <section class="dashboard-grid">
+
+      <!-- MACRO TRACKER -->
+
+      <div class="card" id="macros">
+
+        <div class="card-title">
+          <h3>Daily Macro Tracker</h3>
+          <a href="#macros">View details</a>
+        </div>
+
+        <div class="macro">
+          <div class="macro-info">
+            <strong>Protein</strong>
+            <span>95g / 120g</span>
+          </div>
+          <div class="progress">
+            <div class="progress-fill" style="width:79%"></div>
+          </div>
+        </div>
+
+        <div class="macro">
+          <div class="macro-info">
+            <strong>Carbohydrates</strong>
+            <span>130g / 180g</span>
+          </div>
+          <div class="progress">
+            <div class="progress-fill" style="width:72%"></div>
+          </div>
+        </div>
+
+        <div class="macro">
+          <div class="macro-info">
+            <strong>Fats</strong>
+            <span>42g / 60g</span>
+          </div>
+          <div class="progress">
+            <div class="progress-fill" style="width:70%"></div>
+          </div>
+        </div>
+
+        <button class="primary-btn" onclick="alert('Meal tracker coming soon!')">
+          + Log a Meal
+        </button>
+
+      </div>
+
+
+      <!-- TODAY'S WORKOUT -->
+
+      <div class="card" id="workouts">
+
+        <div class="card-title">
+          <h3>Today's Workout</h3>
+          <a href="#workouts">View plan</a>
+        </div>
+
+        <div class="workout-box">
+          <h4>Glutes & Hamstrings</h4>
+          <p>Lower Body Training</p>
+
+          <div class="workout-details">
+            <span>🏋️ 5 Exercises</span>
+            <span>⏱ 60 Minutes</span>
+          </div>
+        </div>
+
+        <p class="stat-caption" style="margin-bottom:15px">
+          Today's planned exercises:
+        </p>
+
+        <div style="font-size:14px;line-height:2">
+          <p>✓ Romanian Deadlifts</p>
+          <p>✓ Hip Thrusts</p>
+          <p>✓ Bulgarian Split Squats</p>
+          <p>✓ Leg Curls</p>
+          <p>✓ Cable Kickbacks</p>
+        </div>
+
+        <button class="primary-btn" style="margin-top:15px"
+          onclick="alert('Workout session coming soon!')">
+          Start Workout
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- WEEKLY SCHEDULE -->
+
+    <section class="card" style="margin-bottom:20px">
+
+      <div class="card-title">
+        <h3>Weekly Workout Schedule</h3>
+        <a href="#workouts">View all</a>
+      </div>
+
+      <div class="week">
+
+        <div class="day">
+          <span>MON</span>
+          <strong>Glutes</strong>
+        </div>
+
+        <div class="day">
+          <span>TUE</span>
+          <strong>Push</strong>
+        </div>
+
+        <div class="day active" id="todayWorkoutDay">
+          <span>WED</span>
+          <strong>Legs</strong>
+        </div>
+
+        <div class="day">
+          <span>THU</span>
+          <strong>Rest</strong>
+        </div>
+
+        <div class="day">
+          <span>FRI</span>
+          <strong>Glutes</strong>
+        </div>
+
+        <div class="day">
+          <span>SAT</span>
+          <strong>Upper</strong>
+        </div>
+
+        <div class="day rest">
+          <span>SUN</span>
+          <strong>Rest</strong>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- MUSCLE TARGETS -->
+
+    <section class="card" id="muscles">
+
+      <div class="card-title">
+        <h3>Muscle Group Targets</h3>
+        <a href="#muscles">View tracker</a>
+      </div>
+
+      <div class="muscle-list">
+
+        <div class="muscle">
+          <strong>Glutes</strong>
+          <span>Trained this week</span>
+        </div>
+
+        <div class="muscle">
+          <strong>Hamstrings</strong>
+          <span>Trained this week</span>
+        </div>
+
+        <div class="muscle">
+          <strong>Quadriceps</strong>
+          <span>Trained this week</span>
+        </div>
+
+        <div class="muscle">
+          <strong>Shoulders</strong>
+          <span>Upcoming</span>
+        </div>
+
+        <div class="muscle">
+          <strong>Back</strong>
+          <span>Upcoming</span>
+        </div>
+
+        <div class="muscle">
+          <strong>Core</strong>
+          <span>Upcoming</span>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<script>
+
+// DATE
+
+const now = new Date();
+
+document.getElementById('todayDate').textContent =
+  now.toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
+  });
+
+
+// USER NAME
+
+const params = new URLSearchParams(window.location.search);
+const name = params.get('name') || 'User';
+
+document.getElementById('profileName').textContent = name;
+document.getElementById('welcomeName').textContent = name;
+document.getElementById('avatar').textContent =
+  name.charAt(0).toUpperCase();
+
+
+// SIDEBAR NAVIGATION
+
+document.querySelectorAll('.nav-link[href^="#"]').forEach(link => {
+  link.addEventListener('click', () => {
+    document.querySelectorAll('.nav-link').forEach(item => {
+      item.classList.remove('active');
+    });
+
+    link.classList.add('active');
+  });
+});
+
+</script>
+
+</body>
+</html>

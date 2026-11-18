@@ -1,0 +1,1199 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>REPSYNC – Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --orange: #F65100;
+    --orange-hover: #D94300;
+    --black: #151515;
+    --gray: #777777;
+    --light-gray: #F5F5F5;
+    --border: #EEEEEE;
+    --white: #FFFFFF;
+
+    --brand: 'Anton', sans-serif;
+    --display: 'Bricolage Grotesque', sans-serif;
+    --body: 'Instrument Sans', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--body);
+    background: #FAFAFA;
+    color: var(--black);
+}
+
+button {
+    font-family: var(--body);
+    cursor: pointer;
+}
+
+/* LAYOUT */
+
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 245px;
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    padding: 30px 22px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    z-index: 10;
+}
+
+.logo {
+    font-family: var(--brand);
+    font-size: 32px;
+    letter-spacing: .04em;
+    color: var(--orange);
+    text-decoration: none;
+    margin-bottom: 45px;
+}
+
+.nav-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #AAAAAA;
+    letter-spacing: .12em;
+    margin-bottom: 15px;
+}
+
+.nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 13px 15px;
+    border-radius: 9px;
+    color: #777777;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: #FFF1E9;
+    color: var(--orange);
+}
+
+.nav-icon {
+    font-size: 18px;
+    width: 22px;
+    text-align: center;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+}
+
+.profile-mini {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 18px;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #FFF1E9;
+    color: var(--orange);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+}
+
+.profile-info {
+    min-width: 0;
+}
+
+.profile-info strong {
+    display: block;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profile-info span {
+    font-size: 11px;
+    color: var(--gray);
+}
+
+.founder-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+    padding: 3px 7px;
+    border-radius: 999px;
+    background: #FFF1E9;
+    color: var(--orange);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .06em;
+}
+
+
+.logout-btn {
+    border: none;
+    background: transparent;
+    color: #777777;
+    font-size: 13px;
+    padding: 10px 0;
+}
+
+.logout-btn:hover {
+    color: var(--orange);
+}
+
+/* MAIN CONTENT */
+
+.main-content {
+    margin-left: 245px;
+    width: calc(100% - 245px);
+    padding: 35px 45px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.topbar h1 {
+    font-family: var(--display);
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.topbar p {
+    font-size: 13px;
+    color: var(--gray);
+    margin-top: 4px;
+}
+
+.date-label {
+    font-size: 13px;
+    color: var(--gray);
+    background: var(--white);
+    padding: 10px 15px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+/* WELCOME */
+
+.welcome-card {
+    background: var(--orange);
+    color: var(--white);
+    padding: 30px 35px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.welcome-card h2 {
+    font-family: var(--display);
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.welcome-card p {
+    font-size: 14px;
+    opacity: .9;
+}
+
+.welcome-tag {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 10px 15px;
+    border: 1px solid rgba(255,255,255,.4);
+    border-radius: 8px;
+    white-space: nowrap;
+}
+
+/* SECTION */
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 17px;
+}
+
+.section-heading h2 {
+    font-family: var(--display);
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.section-heading p {
+    color: var(--gray);
+    font-size: 12px;
+}
+
+/* STAT CARDS */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 17px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.stat-label {
+    color: var(--gray);
+    font-size: 12px;
+    margin-bottom: 13px;
+}
+
+.stat-value {
+    font-family: var(--display);
+    font-size: 27px;
+    font-weight: 800;
+    color: var(--black);
+}
+
+.stat-unit {
+    font-size: 12px;
+    color: var(--gray);
+    font-weight: 400;
+}
+
+.progress-bg {
+    width: 100%;
+    height: 7px;
+    background: #EEEEEE;
+    border-radius: 20px;
+    margin-top: 14px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--orange);
+    border-radius: 20px;
+    transition: width .3s;
+}
+
+.stat-note {
+    font-size: 11px;
+    color: var(--gray);
+    margin-top: 10px;
+}
+
+/* WEEKLY SCHEDULE */
+
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.day-card {
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    text-align: center;
+    padding: 15px 5px;
+    background: white;
+}
+
+.day-card.today {
+    border-color: var(--orange);
+    background: #FFF5EF;
+}
+
+.day-name {
+    font-size: 11px;
+    color: var(--gray);
+    margin-bottom: 10px;
+}
+
+.day-workout {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--black);
+}
+.day-focus{font-size:10px;color:#999;margin-top:6px;line-height:1.35}
+.day-card.today .day-focus{color:#D96A36}
+
+.day-card.today .day-name,
+.day-card.today .day-workout {
+    color: var(--orange);
+}
+
+/* FOOTER */
+
+footer {
+    margin-top: 35px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    color: var(--gray);
+    font-size: 12px;
+    text-align: center;
+}
+
+/* MOBILE MENU */
+
+.mobile-header {
+    display: none;
+}
+
+.notice {
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 20px;
+    display: none;
+}
+
+.notice.error {
+    display: block;
+    background: #FFF0F0;
+    color: #C62828;
+}
+
+.notice.success {
+    display: block;
+    background: #EFFAF1;
+    color: #238636;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 1100px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 800px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .main-content {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+        padding: 25px;
+    }
+
+    .schedule-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media(max-width: 600px) {
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .mobile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .mobile-header .logo {
+        margin: 0;
+        font-size: 27px;
+    }
+
+    .topbar {
+        margin-bottom: 22px;
+    }
+
+    .topbar h1 {
+        font-size: 25px;
+    }
+
+    .date-label {
+        display: none;
+    }
+
+    .welcome-card {
+        padding: 23px;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .welcome-card h2 {
+        font-size: 23px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 15px;
+    }
+
+    .stat-value {
+        font-size: 23px;
+    }
+
+    .schedule-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+/* MUSCLE MAP */
+.muscle-panel{background:#fff;border:1px solid var(--border);border-radius:15px;padding:24px;margin:0 0 30px}
+.muscle-map-head{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;margin-bottom:8px}
+.muscle-map-head h3{font:800 21px var(--display)}
+.muscle-map-head p{font-size:12px;color:var(--gray);margin-top:5px}
+.muscle-legend{display:flex;flex-wrap:wrap;gap:13px;margin:16px 0 18px;font-size:11px;color:#666}
+.legend-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:#e5e5e5}
+.legend-dot.today{background:#F65100}.legend-dot.previous{background:#35A66F}
+.muscle-image-wrap{max-width:760px;margin:0 auto;background:#fafafa;border:1px solid #eee;border-radius:13px;padding:12px;overflow:hidden}
+.muscle-image-map{display:block;width:100%;height:auto}
+.muscle-hit{fill:#777;fill-opacity:0;stroke:transparent;stroke-width:1.1;stroke-linejoin:round;cursor:pointer;transition:fill-opacity .18s,fill .2s,stroke .18s}
+.muscle-hit:hover,.muscle-hit:focus{fill:#F65100;fill-opacity:.38;stroke:#fff;stroke-width:1.4;outline:none}
+.muscle-hit.done-today{fill:#F65100;fill-opacity:.78;stroke:#fff;stroke-width:.8}
+.muscle-hit.done-previous{fill:#35A66F;fill-opacity:.72;stroke:#fff;stroke-width:.8}
+.muscle-hit.done-today:hover,.muscle-hit.done-previous:hover{fill-opacity:.95}
+.muscle-hit:focus{stroke:#151515;stroke-width:2}
+.muscle-map-foot{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.muscle-status{font-size:12px;color:#777;margin:0}
+.muscle-status strong{color:#151515}
+.muscle-selected{font-size:12px;font-weight:700;color:#F65100;min-height:16px}
+@media(max-width:600px){.muscle-panel{padding:17px}.muscle-map-head{display:block}.muscle-image-wrap{padding:5px}.muscle-map-foot{align-items:flex-start;flex-direction:column}}
+
+
+
+/* MOBILE PRIMARY NAVIGATION */
+.mobile-bottom-nav { display:none; }
+@media (max-width:650px) {
+  .mobile-bottom-nav {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    grid-template-rows:repeat(2,1fr);
+    position:fixed;
+    left:0; right:0; bottom:0;
+    z-index:9999;
+    min-height:104px;
+    padding:8px 8px calc(8px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.97);
+    border-top:1px solid #eaeaea;
+    box-shadow:0 -5px 20px rgba(0,0,0,.06);
+    backdrop-filter:blur(12px);
+  }
+  .mobile-nav-link {
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    padding:5px 1px;
+    color:#858585;
+    text-decoration:none;
+    font-family:var(--body, 'Instrument Sans', sans-serif);
+    font-size:10px;
+    line-height:1.15;
+    font-weight:700;
+    text-align:center;
+    white-space:nowrap;
+  }
+  .mobile-nav-icon { font-size:19px; line-height:1; }
+  .mobile-nav-link.active { color:#F65100; }
+  .mobile-nav-link.active .mobile-nav-icon { transform:translateY(-1px); }
+  .main-content { padding-bottom:calc(100px + env(safe-area-inset-bottom)) !important; }
+  body { padding-bottom:116px !important; }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <a href="dashboard.html" class="logo">REPSYNC</a>
+
+        <p class="nav-label">WORKSPACE</p>
+
+        <nav class="nav-menu">
+
+            <a href="dashboard.html" class="nav-item active">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="nutrition.html" class="nav-item">
+                <span class="nav-icon">◉</span>
+                Nutrition
+            </a>
+
+            <a href="workout-logs.html" class="nav-item">
+                <span class="nav-icon">↗</span>
+                Workout Logs
+            </a>
+
+            <a href="muscle-targets.html" class="nav-item">
+                <span class="nav-icon">◎</span>
+                Feed
+            </a>
+
+        
+<a href="friends.html" class="nav-item"><span class="nav-icon">♧</span>Friends</a>
+</nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="my-profile.html" class="profile-mini" style="text-decoration:none;color:inherit">
+                <div class="avatar" id="userAvatar">R</div>
+
+                <div class="profile-info">
+                    <strong id="sidebarName">Loading...</strong>
+                    <span>REPSYNC Member</span>
+                    <span class="founder-badge" id="founderBadge" hidden>★ FOUNDER</span>
+                </div>
+            </a>
+
+            <button class="logout-btn" id="logoutBtn">
+                ↪ Log out
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content" id="overview">
+
+        <div class="mobile-header">
+            <a href="dashboard.html" class="logo">REPSYNC</a>
+            <button class="logout-btn" id="mobileLogout">Log out ↪</button>
+        </div>
+
+        <div class="topbar">
+
+            <div>
+                <h1>Dashboard</h1>
+                <p>Your fitness journey, one day at a time.</p>
+            </div>
+
+            <div class="date-label" id="todayDate"></div>
+
+        </div>
+
+
+        <div id="dashboardNotice" class="notice"></div>
+
+
+        <!-- WELCOME -->
+
+        <section class="welcome-card">
+
+            <div>
+                <h2>Let's get stronger, <span id="welcomeName">Athlete</span>!</h2>
+
+                <p>
+                    Stay consistent. Track your progress.
+                    Make every workout count.
+                </p>
+            </div>
+
+            <div class="welcome-tag">
+                ⚡ YOUR FITNESS SPACE
+            </div>
+
+        </section>
+
+
+        <!-- DAILY STATS -->
+
+        <div class="section-heading">
+            <h2>Today's Overview</h2>
+            <p>Your daily fitness progress</p>
+        </div>
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <p class="stat-label">Calories</p>
+
+                <div class="stat-value">
+                    <span id="dashCalories">0</span> <span class="stat-unit">/ <span id="targetCalories">—</span> kcal</span>
+                </div>
+
+                <div class="progress-bg">
+                    <div class="progress-fill" id="caloriesProgress" style="width:0%"></div>
+                </div>
+
+                <p class="stat-note" id="caloriesRemaining">Log food to track your calories</p>
+            </div>
+
+
+            <div class="stat-card">
+                <p class="stat-label">Protein</p>
+
+                <div class="stat-value">
+                    <span id="dashProtein">0</span> <span class="stat-unit">/ <span id="targetProtein">—</span> g</span>
+                </div>
+
+                <div class="progress-bg">
+                    <div class="progress-fill" id="proteinProgress" style="width:0%"></div>
+                </div>
+
+                <p class="stat-note" id="proteinRemaining">Log food to track your protein</p>
+            </div>
+
+
+            <div class="stat-card">
+                <p class="stat-label">Carbohydrates</p>
+
+                <div class="stat-value">
+                    <span id="dashCarbs">0</span> <span class="stat-unit">/ <span id="targetCarbs">—</span> g</span>
+                </div>
+
+                <div class="progress-bg">
+                    <div class="progress-fill" id="carbsProgress" style="width:0%"></div>
+                </div>
+
+                <p class="stat-note" id="carbsRemaining">Log food to track your carbs</p>
+            </div>
+
+
+            <div class="stat-card">
+                <p class="stat-label">Fats</p>
+
+                <div class="stat-value">
+                    <span id="dashFat">0</span> <span class="stat-unit">/ <span id="targetFat">—</span> g</span>
+                </div>
+
+                <div class="progress-bg">
+                    <div class="progress-fill" id="fatProgress" style="width:0%"></div>
+                </div>
+
+                <p class="stat-note" id="fatRemaining">Log food to track your fats</p>
+            </div>
+
+        </section>
+
+
+
+        <!-- WORKOUT MUSCLE MAP -->
+        <section class="muscle-panel" aria-labelledby="muscleMapTitle">
+            <div class="muscle-map-head">
+                <div><h3 id="muscleMapTitle">Muscle Activity</h3><p>Full-body anatomy map. Select any muscle region to identify it; activity colors update from your saved workouts.</p></div>
+                <a href="workout-logs.html" style="color:var(--orange);font-size:12px;font-weight:700;text-decoration:none">+ Log workout</a>
+            </div>
+            <div class="muscle-legend"><span><i class="legend-dot today"></i>Trained today</span><span><i class="legend-dot previous"></i>Trained earlier this week</span><span><i class="legend-dot"></i>Not trained</span></div>
+            <div class="muscle-image-wrap">
+                <svg class="muscle-image-map" viewBox="0 0 504 396" role="group" aria-label="Full-body front and back muscle anatomy map">
+                    <image href="data:image/jpeg;base64,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" x="0" y="0" width="504" height="396" preserveAspectRatio="none"/>
+                    <polygon class="muscle-hit" data-muscle="front_delts" points="111,82 124,76 136,83 131,101 119,107 108,99" tabindex="0" role="button" aria-label="Front deltoid" data-label="Front deltoid"><title>Front deltoid</title></polygon><polygon class="muscle-hit" data-muscle="side_delts" points="96,84 110,78 116,91 109,108 98,104 91,95" tabindex="0" role="button" aria-label="Side deltoid" data-label="Side deltoid"><title>Side deltoid</title></polygon><polygon class="muscle-hit" data-muscle="upper_chest" points="120,94 139,91 158,94 155,108 140,112 124,108" tabindex="0" role="button" aria-label="Upper chest" data-label="Upper chest"><title>Upper chest</title></polygon><polygon class="muscle-hit" data-muscle="middle_chest" points="122,108 139,111 156,108 154,123 140,127 124,123" tabindex="0" role="button" aria-label="Middle chest" data-label="Middle chest"><title>Middle chest</title></polygon><polygon class="muscle-hit" data-muscle="lower_chest" points="125,123 139,127 154,123 150,135 140,138 129,135" tabindex="0" role="button" aria-label="Lower chest" data-label="Lower chest"><title>Lower chest</title></polygon><polygon class="muscle-hit" data-muscle="biceps_long" points="98,111 108,107 112,126 107,143 99,141 95,127" tabindex="0" role="button" aria-label="Biceps long head" data-label="Biceps long head"><title>Biceps long head</title></polygon><polygon class="muscle-hit" data-muscle="biceps_short" points="109,108 117,110 119,128 114,143 107,141 112,125" tabindex="0" role="button" aria-label="Biceps short head" data-label="Biceps short head"><title>Biceps short head</title></polygon><polygon class="muscle-hit" data-muscle="brachialis" points="96,137 106,142 104,154 96,153 91,145" tabindex="0" role="button" aria-label="Brachialis" data-label="Brachialis"><title>Brachialis</title></polygon><polygon class="muscle-hit" data-muscle="forearm_flexors" points="84,151 98,154 93,180 84,193 77,187" tabindex="0" role="button" aria-label="Forearm flexors" data-label="Forearm flexors"><title>Forearm flexors</title></polygon><polygon class="muscle-hit" data-muscle="forearm_extensors" points="98,154 108,151 104,179 96,192 91,181" tabindex="0" role="button" aria-label="Forearm extensors" data-label="Forearm extensors"><title>Forearm extensors</title></polygon><polygon class="muscle-hit" data-muscle="serratus" points="120,130 127,136 125,150 119,145" tabindex="0" role="button" aria-label="Serratus anterior" data-label="Serratus anterior"><title>Serratus anterior</title></polygon><polygon class="muscle-hit" data-muscle="upper_abs" points="130,139 139,140 139,151 130,151" tabindex="0" role="button" aria-label="Upper abs" data-label="Upper abs"><title>Upper abs</title></polygon><polygon class="muscle-hit" data-muscle="upper_abs" points="141,140 150,139 150,151 141,151" tabindex="0" role="button" aria-label="Upper abs" data-label="Upper abs"><title>Upper abs</title></polygon><polygon class="muscle-hit" data-muscle="middle_abs" points="130,152 139,152 139,164 130,164" tabindex="0" role="button" aria-label="Middle abs" data-label="Middle abs"><title>Middle abs</title></polygon><polygon class="muscle-hit" data-muscle="middle_abs" points="141,152 150,152 150,164 141,164" tabindex="0" role="button" aria-label="Middle abs" data-label="Middle abs"><title>Middle abs</title></polygon><polygon class="muscle-hit" data-muscle="lower_abs" points="131,165 139,165 139,178 132,179" tabindex="0" role="button" aria-label="Lower abs" data-label="Lower abs"><title>Lower abs</title></polygon><polygon class="muscle-hit" data-muscle="lower_abs" points="141,165 149,165 148,179 141,178" tabindex="0" role="button" aria-label="Lower abs" data-label="Lower abs"><title>Lower abs</title></polygon><polygon class="muscle-hit" data-muscle="obliques" points="119,141 129,149 128,172 119,165" tabindex="0" role="button" aria-label="External obliques" data-label="External obliques"><title>External obliques</title></polygon><polygon class="muscle-hit" data-muscle="obliques" points="151,149 161,141 161,165 152,172" tabindex="0" role="button" aria-label="External obliques" data-label="External obliques"><title>External obliques</title></polygon><polygon class="muscle-hit" data-muscle="quads_lateralis" points="113,195 128,195 126,235 118,251 111,233" tabindex="0" role="button" aria-label="Vastus lateralis" data-label="Vastus lateralis"><title>Vastus lateralis</title></polygon><polygon class="muscle-hit" data-muscle="rectus_femoris" points="128,194 140,193 140,242 132,252 126,235" tabindex="0" role="button" aria-label="Rectus femoris" data-label="Rectus femoris"><title>Rectus femoris</title></polygon><polygon class="muscle-hit" data-muscle="vastus_medialis" points="140,193 153,195 154,233 147,252 140,242" tabindex="0" role="button" aria-label="Vastus medialis" data-label="Vastus medialis"><title>Vastus medialis</title></polygon><polygon class="muscle-hit" data-muscle="tibialis_anterior" points="126,267 138,269 137,323 130,329 125,306" tabindex="0" role="button" aria-label="Tibialis anterior" data-label="Tibialis anterior"><title>Tibialis anterior</title></polygon><polygon class="muscle-hit" data-muscle="gastrocnemius" points="142,269 153,266 155,306 149,328 140,323" tabindex="0" role="button" aria-label="Gastrocnemius" data-label="Gastrocnemius"><title>Gastrocnemius</title></polygon><polygon class="muscle-hit" data-muscle="rear_delts" points="328,80 342,77 349,91 341,106 329,101" tabindex="0" role="button" aria-label="Rear deltoid" data-label="Rear deltoid"><title>Rear deltoid</title></polygon><polygon class="muscle-hit" data-muscle="rear_delts" points="363,77 379,80 379,101 367,106 359,91" tabindex="0" role="button" aria-label="Rear deltoid" data-label="Rear deltoid"><title>Rear deltoid</title></polygon><polygon class="muscle-hit" data-muscle="traps_upper" points="344,82 355,88 367,82 363,105 355,115 347,105" tabindex="0" role="button" aria-label="Upper trapezius" data-label="Upper trapezius"><title>Upper trapezius</title></polygon><polygon class="muscle-hit" data-muscle="traps_middle" points="347,106 355,115 363,106 367,127 355,133 343,127" tabindex="0" role="button" aria-label="Middle trapezius" data-label="Middle trapezius"><title>Middle trapezius</title></polygon><polygon class="muscle-hit" data-muscle="traps_lower" points="348,128 355,134 362,128 365,145 355,151 345,145" tabindex="0" role="button" aria-label="Lower trapezius" data-label="Lower trapezius"><title>Lower trapezius</title></polygon><polygon class="muscle-hit" data-muscle="rhomboids" points="345,111 353,119 352,140 342,133" tabindex="0" role="button" aria-label="Rhomboids" data-label="Rhomboids"><title>Rhomboids</title></polygon><polygon class="muscle-hit" data-muscle="rhomboids" points="365,119 374,111 377,133 367,140" tabindex="0" role="button" aria-label="Rhomboids" data-label="Rhomboids"><title>Rhomboids</title></polygon><polygon class="muscle-hit" data-muscle="lats_upper" points="336,118 348,129 349,155 340,164 331,143" tabindex="0" role="button" aria-label="Upper latissimus dorsi" data-label="Upper latissimus dorsi"><title>Upper latissimus dorsi</title></polygon><polygon class="muscle-hit" data-muscle="lats_upper" points="374,129 386,118 391,143 382,164 373,155" tabindex="0" role="button" aria-label="Upper latissimus dorsi" data-label="Upper latissimus dorsi"><title>Upper latissimus dorsi</title></polygon><polygon class="muscle-hit" data-muscle="lats_lower" points="349,151 355,157 361,151 369,169 355,179 341,169" tabindex="0" role="button" aria-label="Lower latissimus dorsi" data-label="Lower latissimus dorsi"><title>Lower latissimus dorsi</title></polygon><polygon class="muscle-hit" data-muscle="triceps_long" points="325,108 336,105 339,127 332,143 324,139" tabindex="0" role="button" aria-label="Triceps long head" data-label="Triceps long head"><title>Triceps long head</title></polygon><polygon class="muscle-hit" data-muscle="triceps_lateral" points="337,107 345,111 344,133 339,143 333,130" tabindex="0" role="button" aria-label="Triceps lateral head" data-label="Triceps lateral head"><title>Triceps lateral head</title></polygon><polygon class="muscle-hit" data-muscle="triceps_medial" points="331,137 340,139 337,151 329,149" tabindex="0" role="button" aria-label="Triceps medial head" data-label="Triceps medial head"><title>Triceps medial head</title></polygon><polygon class="muscle-hit" data-muscle="forearm_extensors" points="315,150 329,153 323,180 314,193 307,185" tabindex="0" role="button" aria-label="Forearm extensors" data-label="Forearm extensors"><title>Forearm extensors</title></polygon><polygon class="muscle-hit" data-muscle="erectors" points="350,146 355,149 355,186 349,189" tabindex="0" role="button" aria-label="Spinal erectors" data-label="Spinal erectors"><title>Spinal erectors</title></polygon><polygon class="muscle-hit" data-muscle="erectors" points="356,149 361,146 367,189 361,186" tabindex="0" role="button" aria-label="Spinal erectors" data-label="Spinal erectors"><title>Spinal erectors</title></polygon><polygon class="muscle-hit" data-muscle="glute_max" points="340,190 355,188 355,218 343,224 334,211" tabindex="0" role="button" aria-label="Gluteus maximus" data-label="Gluteus maximus"><title>Gluteus maximus</title></polygon><polygon class="muscle-hit" data-muscle="glute_max" points="356,188 371,190 378,211 367,224 356,218" tabindex="0" role="button" aria-label="Gluteus maximus" data-label="Gluteus maximus"><title>Gluteus maximus</title></polygon><polygon class="muscle-hit" data-muscle="glute_med" points="335,185 345,181 355,188 340,197" tabindex="0" role="button" aria-label="Gluteus medius" data-label="Gluteus medius"><title>Gluteus medius</title></polygon><polygon class="muscle-hit" data-muscle="glute_med" points="356,188 366,181 376,185 371,197" tabindex="0" role="button" aria-label="Gluteus medius" data-label="Gluteus medius"><title>Gluteus medius</title></polygon><polygon class="muscle-hit" data-muscle="ham_biceps" points="337,222 348,222 349,267 341,280 334,260" tabindex="0" role="button" aria-label="Biceps femoris" data-label="Biceps femoris"><title>Biceps femoris</title></polygon><polygon class="muscle-hit" data-muscle="ham_semi" points="349,222 356,222 356,272 350,280 347,258" tabindex="0" role="button" aria-label="Semitendinosus and semimembranosus" data-label="Semitendinosus and semimembranosus"><title>Semitendinosus and semimembranosus</title></polygon><polygon class="muscle-hit" data-muscle="ham_biceps" points="357,222 368,222 371,260 364,280 357,272" tabindex="0" role="button" aria-label="Biceps femoris" data-label="Biceps femoris"><title>Biceps femoris</title></polygon><polygon class="muscle-hit" data-muscle="ham_semi" points="356,222 363,222 365,258 362,280 356,272" tabindex="0" role="button" aria-label="Semitendinosus and semimembranosus" data-label="Semitendinosus and semimembranosus"><title>Semitendinosus and semimembranosus</title></polygon><polygon class="muscle-hit" data-muscle="calves_medial" points="341,280 350,280 350,310 345,319 339,306" tabindex="0" role="button" aria-label="Medial gastrocnemius" data-label="Medial gastrocnemius"><title>Medial gastrocnemius</title></polygon><polygon class="muscle-hit" data-muscle="calves_lateral" points="351,280 359,280 361,306 356,319 350,310" tabindex="0" role="button" aria-label="Lateral gastrocnemius" data-label="Lateral gastrocnemius"><title>Lateral gastrocnemius</title></polygon><polygon class="muscle-hit" data-muscle="soleus" points="344,316 355,315 356,337 347,340" tabindex="0" role="button" aria-label="Soleus" data-label="Soleus"><title>Soleus</title></polygon><polygon class="muscle-hit" data-muscle="calves_medial" points="361,280 370,280 372,306 366,319 360,310" tabindex="0" role="button" aria-label="Medial gastrocnemius" data-label="Medial gastrocnemius"><title>Medial gastrocnemius</title></polygon><polygon class="muscle-hit" data-muscle="calves_lateral" points="371,280 379,280 381,306 375,319 369,310" tabindex="0" role="button" aria-label="Lateral gastrocnemius" data-label="Lateral gastrocnemius"><title>Lateral gastrocnemius</title></polygon><polygon class="muscle-hit" data-muscle="soleus" points="361,316 372,315 373,337 364,340" tabindex="0" role="button" aria-label="Soleus" data-label="Soleus"><title>Soleus</title></polygon>
+                </svg>
+            </div>
+            <div class="muscle-map-foot"><p class="muscle-status" id="muscleMapStatus">Loading your workout activity...</p><span class="muscle-selected" id="muscleSelected" aria-live="polite">Select a muscle region</span></div>
+        </section>
+
+        <!-- WEEKLY SCHEDULE -->
+
+        <section class="panel" style="margin-bottom:30px;">
+
+            <div class="panel-title">
+                <h3>Weekly Workout Schedule</h3>
+                <span>Weekly plan</span>
+            </div>
+
+            <div class="schedule-grid" id="dashboardScheduleGrid">
+                <div class="day-card" data-day="1"><div class="day-name">MON</div><div class="day-workout">Loading...</div><div class="day-focus"></div></div>
+                <div class="day-card" data-day="2"><div class="day-name">TUE</div><div class="day-workout">Loading...</div><div class="day-focus"></div></div>
+                <div class="day-card" data-day="3"><div class="day-name">WED</div><div class="day-workout">Loading...</div><div class="day-focus"></div></div>
+                <div class="day-card" data-day="4"><div class="day-name">THU</div><div class="day-workout">Loading...</div><div class="day-focus"></div></div>
+                <div class="day-card" data-day="5"><div class="day-name">FRI</div><div class="day-workout">Loading...</div><div class="day-focus"></div></div>
+                <div class="day-card" data-day="6"><div class="day-name">SAT</div><div class="day-workout">Loading...</div><div class="day-focus"></div></div>
+                <div class="day-card" data-day="0"><div class="day-name">SUN</div><div class="day-workout">Loading...</div><div class="day-focus"></div></div>
+            </div>
+        </section>
+
+
+
+        
+
+
+        <footer>
+            © 2026 REPSYNC. Built for consistency.
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+(() => {
+
+    // SUPABASE CONFIGURATION
+
+    const SUPABASE_URL = 'https://jwcyfrdrcsesilwxunmt.supabase.co';
+
+    const SUPABASE_PUBLISHABLE_KEY =
+        'sb_publishable_LN0QSVpbe1O8fTV_AZAKnw_uU1-Mo3G';
+
+    if (!window.supabase || !window.supabase.createClient) {
+        alert('Supabase library could not load. Check your internet connection.');
+        return;
+    }
+
+    const supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+    // ELEMENTS
+
+    const welcomeName = document.getElementById('welcomeName');
+    const sidebarName = document.getElementById('sidebarName');
+    const userAvatar = document.getElementById('userAvatar');
+    const notice = document.getElementById('dashboardNotice');
+
+
+    // DISPLAY CURRENT DATE
+
+    const today = new Date();
+
+    document.getElementById('todayDate').textContent =
+        today.toLocaleDateString('en-US', {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric'
+        });
+
+    // Highlight today's workout in the weekly schedule
+    document.querySelectorAll('.day-card[data-day]').forEach(card => {
+        card.classList.toggle('today', Number(card.dataset.day) === today.getDay());
+    });
+
+    // DISPLAY USER INFORMATION (including the public founder designation)
+    async function displayUser(user) {
+        let fullName = user.user_metadata?.full_name || user.email?.split('@')[0] || 'Athlete';
+        let avatarUrl = '';
+        let isFounder = false;
+
+        const { data: profile, error } = await supabaseClient
+            .from('profiles')
+            .select('full_name, avatar_url, is_founder')
+            .eq('id', user.id)
+            .maybeSingle();
+
+        if (error) console.warn('Could not load dashboard profile:', error.message);
+        if (profile) {
+            fullName = profile.full_name || fullName;
+            avatarUrl = profile.avatar_url || '';
+            isFounder = profile.is_founder === true || fullName.trim().toLowerCase() === 'innyego saavedra';
+        } else {
+            isFounder = fullName.trim().toLowerCase() === 'innyego saavedra';
+        }
+
+        welcomeName.textContent = fullName.split(' ')[0];
+        sidebarName.textContent = fullName;
+        userAvatar.textContent = fullName.charAt(0).toUpperCase();
+        if (avatarUrl) {
+            userAvatar.textContent = '';
+            const image = document.createElement('img');
+            image.src = avatarUrl;
+            image.alt = fullName + ' profile photo';
+            image.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%';
+            userAvatar.appendChild(image);
+        }
+        const badge = document.getElementById('founderBadge');
+        if (badge) badge.hidden = !isFounder;
+    }
+
+    // LOCAL DATE (matches nutrition.html food-log date)
+    function getLocalDate() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    function updateStat(key, consumed, target, unit) {
+        const safeTarget = Number(target) || 0;
+        const amount = Number(consumed) || 0;
+        document.getElementById(`dash${key}`).textContent = Math.round(amount * 10) / 10;
+        document.getElementById(`target${key}`).textContent = safeTarget ? Math.round(safeTarget * 10) / 10 : '—';
+        document.getElementById(`${key.toLowerCase()}Progress`).style.width = safeTarget ? `${Math.min(100, amount / safeTarget * 100)}%` : '0%';
+        document.getElementById(`${key.toLowerCase()}Remaining`).textContent = safeTarget
+            ? `${Math.max(0, Math.round((safeTarget - amount) * 10) / 10)} ${unit} remaining`
+            : 'Set your nutrition goals on the Nutrition page';
+    }
+
+    // LOAD TODAY'S FOOD LOGS AND PROFILE TARGETS
+    async function loadNutritionOverview(userId) {
+        const noticeEl = notice;
+        try {
+            const [{ data: foods, error: foodError }, { data: profile, error: profileError }] = await Promise.all([
+                supabaseClient.from('food_logs')
+                    .select('calories, protein, carbs, fat')
+                    .eq('user_id', userId)
+                    .eq('logged_on', getLocalDate()),
+                supabaseClient.from('nutrition_profiles')
+                    .select('age, gender, height_cm, weight_kg, activity_level, goal')
+                    .eq('user_id', userId)
+                    .maybeSingle()
+            ]);
+
+            if (foodError) throw foodError;
+            if (profileError) throw profileError;
+
+            const totals = (foods || []).reduce((sum, food) => {
+                sum.calories += Number(food.calories) || 0;
+                sum.protein += Number(food.protein) || 0;
+                sum.carbs += Number(food.carbs) || 0;
+                sum.fat += Number(food.fat) || 0;
+                return sum;
+            }, { calories: 0, protein: 0, carbs: 0, fat: 0 });
+
+            let targets = { calories: 0, protein: 0, carbs: 0, fat: 0 };
+            if (profile) {
+                const weight = Number(profile.weight_kg);
+                const height = Number(profile.height_cm);
+                const age = Number(profile.age);
+                const activity = Number(profile.activity_level);
+                const bmr = profile.gender === 'male'
+                    ? 10 * weight + 6.25 * height - 5 * age + 5
+                    : 10 * weight + 6.25 * height - 5 * age - 161;
+                const tdee = bmr * activity;
+                const goal = profile.goal || 'maintenance';
+                targets.calories = Math.round(goal === 'cutting' ? tdee * 0.85 : goal === 'bulking' ? tdee * 1.10 : tdee);
+                targets.protein = Math.round(weight * 1.8);
+                targets.fat = Math.round(weight * 0.8);
+                targets.carbs = Math.max(0, Math.round((targets.calories - targets.protein * 4 - targets.fat * 9) / 4));
+            }
+
+            updateStat('Calories', totals.calories, targets.calories, 'kcal');
+            updateStat('Protein', totals.protein, targets.protein, 'g');
+            updateStat('Carbs', totals.carbs, targets.carbs, 'g');
+            updateStat('Fat', totals.fat, targets.fat, 'g');
+        } catch (error) {
+            console.error('Dashboard nutrition loading error:', error);
+            noticeEl.textContent = 'Could not load today’s nutrition: ' + error.message;
+            noticeEl.className = 'notice error';
+        }
+    }
+
+
+    // LOAD WORKOUT ACTIVITY AND COLOR THE MUSCLE MAP
+    async function loadMuscleMap(userId) {
+        const status = document.getElementById('muscleMapStatus');
+        try {
+            // Weekly muscle activity runs Monday 12:00 AM through Sunday 11:59 PM
+            // using the visitor's local timezone (Philippine time for this app user).
+            const now = new Date();
+            const weekStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const daysSinceMonday = (weekStart.getDay() + 6) % 7;
+            weekStart.setDate(weekStart.getDate() - daysSinceMonday);
+            const weekStartDate = `${weekStart.getFullYear()}-${String(weekStart.getMonth() + 1).padStart(2, '0')}-${String(weekStart.getDate()).padStart(2, '0')}`;
+
+            const { data, error } = await supabaseClient
+                .from('workout_logs')
+                .select('workout_date, muscle_group, workout_exercises(muscle_target)')
+                .eq('user_id', userId)
+                .gte('workout_date', weekStartDate)
+                .order('workout_date', { ascending: false })
+                .limit(200);
+            if (error) throw error;
+
+            const todayDate = getLocalDate();
+            const muscleDates = new Map();
+            const addMuscle = (name, date) => {
+                const key = normalizeMuscle(name);
+                if (!key) return;
+                const existing = muscleDates.get(key);
+                if (!existing || date > existing) muscleDates.set(key, date);
+            };
+
+            (data || []).forEach(workout => {
+                const date = workout.workout_date;
+                const targets = (workout.workout_exercises || []).map(ex => ex.muscle_target).filter(Boolean);
+                if (targets.length) targets.forEach(target => addMuscle(target, date));
+                else addMuscle(workout.muscle_group, date);
+                const allTargets = [...targets, workout.muscle_group].map(normalizeMuscle);
+                if (allTargets.includes('fullbody')) {
+                    ['shoulders','chest','biceps','core','quads','calves','traps','back','triceps','lowerback','glutes','hamstrings','forearms'].forEach(m => addMuscle(m, date));
+                }
+                if (allTargets.includes('legs')) ['glutes','quads','hamstrings','calves'].forEach(m => addMuscle(m, date));
+                if (allTargets.includes('arms')) ['biceps','triceps','forearms'].forEach(m => addMuscle(m, date));
+            });
+
+            const muscleAliases = {
+                chest: ['upper_chest','middle_chest','lower_chest'], shoulders: ['front_delts','side_delts','rear_delts'],
+                biceps: ['biceps_long','biceps_short','brachialis'], triceps: ['triceps_long','triceps_lateral','triceps_medial'],
+                forearms: ['forearm_flexors','forearm_extensors'], core: ['upper_abs','middle_abs','lower_abs','obliques','serratus'],
+                back: ['lats_upper','lats_lower','rhomboids'], traps: ['traps_upper','traps_middle','traps_lower'],
+                quads: ['quads_lateralis','rectus_femoris','vastus_medialis'], hamstrings: ['ham_biceps','ham_semi'],
+                glutes: ['glute_max','glute_med'], calves: ['calves_medial','calves_lateral','gastrocnemius','soleus']
+            };
+            const expandedDates = new Map(muscleDates);
+            muscleDates.forEach((date, key) => (muscleAliases[key] || []).forEach(alias => {
+                const current = expandedDates.get(alias); if (!current || date > current) expandedDates.set(alias, date);
+            }));
+            document.querySelectorAll('.muscle-hit[data-muscle]').forEach(region => {
+                const trainedDate = expandedDates.get(region.dataset.muscle);
+                region.classList.remove('done-today', 'done-previous');
+                if (trainedDate === todayDate) region.classList.add('done-today');
+                else if (trainedDate) region.classList.add('done-previous');
+            });
+
+            const trainedToday = [...muscleDates.values()].filter(date => date === todayDate).length;
+            const trainedEver = muscleDates.size;
+            status.innerHTML = `<strong>${trainedToday} muscle groups</strong> trained today · ${trainedEver} tracked this week`;
+            if (!data?.length) status.textContent = 'No workouts logged this week yet. Your weekly muscle map starts fresh every Monday.';
+        } catch (error) {
+            console.error('Muscle map loading error:', error);
+            status.textContent = 'Unable to load muscle activity: ' + error.message;
+        }
+    }
+
+    function normalizeMuscle(value) {
+        const v = String(value || '').toLowerCase().replace(/[^a-z]/g, '');
+        const aliases = {
+            glute: 'glutes', glutes: 'glutes', butt: 'glutes', gluteusmaximus: 'glute_max', gluteusmedius: 'glute_med', gluteusminimus: 'glute_med',
+            quad: 'quads', quadriceps: 'quads', quads: 'quads', rectusfemoris: 'rectus_femoris', vastuslateralis: 'quads', vastusmedialis: 'quads', vastusintermedius: 'quads',
+            hamstring: 'hamstrings', hamstrings: 'hamstrings', bicepsfemoris: 'hamstrings', semitendinosus: 'hamstrings', semimembranosus: 'hamstrings',
+            leg: 'quads', legs: 'quads',
+            chest: 'chest', pecs: 'chest', pectorals: 'chest', pectoralismajor: 'chest', upperchest: 'upper_chest', middlechest: 'middle_chest', lowerchest: 'lower_chest',
+            back: 'back', lats: 'back', latissimus: 'back', latissimusdorsi: 'back', upperback: 'back', lowerback: 'erectors', erectors: 'erectors', spinalerectors: 'erectors',
+            shoulder: 'shoulders', shoulders: 'shoulders', delts: 'shoulders', frontdeltoid: 'front_delts', anteriordeltoid: 'front_delts', sidedeltoid: 'side_delts', lateraldeltoid: 'side_delts', reardeltoid: 'rear_delts', posteriordeltoid: 'rear_delts',
+            bicep: 'biceps', biceps: 'biceps', bicepslonghead: 'biceps_long', bicepsshorthead: 'biceps_short', brachialis: 'brachialis', brachioradialis: 'forearm_flexors', arm: 'biceps', arms: 'biceps',
+            tricep: 'triceps', triceps: 'triceps', tricepslonghead: 'triceps_long', tricepslateralhead: 'triceps_lateral', tricepsmedialhead: 'triceps_medial',
+            core: 'core', abs: 'core', abdominals: 'core', upperabs: 'upper_abs', middleabs: 'middle_abs', lowerabs: 'lower_abs', obliques: 'obliques', externalobliques: 'obliques', internalobliques: 'obliques', serratus: 'serratus', serratusanterior: 'serratus',
+            trap: 'traps', traps: 'traps', trapezius: 'traps', uppertrapezius: 'traps_upper', middletrapezius: 'traps_middle', lowertrapezius: 'traps_lower', rhomboids: 'rhomboids',
+            calf: 'calves', calves: 'calves', gastrocnemius: 'gastrocnemius', soleus: 'soleus', tibialisanterior: 'tibialis_anterior',
+            forearm: 'forearms', forearms: 'forearms', forearmflexors: 'forearm_flexors', forearmextensors: 'forearm_extensors',
+            adductors: 'adductors', sartorius: 'sartorius', gracilis: 'adductors'
+        };
+        if (v === 'fullbody') return 'fullbody';
+        if (v === 'legs') return 'quads';
+        return aliases[v] || null;
+    }
+
+    // Muscle map selection: identify detailed muscle regions on the full-body image.
+    document.addEventListener('click', event => {
+        const region = event.target.closest('.muscle-hit[data-label]');
+        if (!region) return;
+        const selected = document.getElementById('muscleSelected');
+        if (selected) selected.textContent = region.dataset.label;
+    });
+    document.addEventListener('keydown', event => {
+        if ((event.key === 'Enter' || event.key === ' ') && event.target.matches('.muscle-hit[data-label]')) {
+            event.preventDefault();
+            const selected = document.getElementById('muscleSelected');
+            if (selected) selected.textContent = event.target.dataset.label;
+        }
+    });
+
+    // Load the member's saved weekly split from Supabase.
+    async function loadWeeklySchedule(userId) {
+        const { data, error } = await supabaseClient
+            .from('weekly_workout_schedule')
+            .select('day_of_week, workout_name, focus, planned_exercises')
+            .eq('user_id', userId);
+        if (error) {
+            console.error('Weekly schedule loading error:', error);
+            document.querySelectorAll('.day-workout').forEach(el => el.textContent = 'Not set');
+            return;
+        }
+        const plan = {};
+        (data || []).forEach(item => {
+            plan[item.day_of_week] = {
+                name: item.workout_name || 'Rest',
+                focus: item.focus || '',
+                count: Array.isArray(item.planned_exercises) ? item.planned_exercises.length : 0
+            };
+        });
+        document.querySelectorAll('.day-card[data-day]').forEach(card => {
+            const item = plan[Number(card.dataset.day)] || {name:'Not set',focus:'',count:0};
+            card.querySelector('.day-workout').textContent = item.name;
+            const focus = card.querySelector('.day-focus');
+            if (focus) focus.textContent = item.focus ? item.focus + (item.count ? ' · ' + item.count + ' exercises' : '') : (item.count ? item.count + ' planned exercises' : '');
+        });
+    }
+
+    // AUTHENTICATION CHECK
+
+    async function initializeDashboard() {
+
+        try {
+
+            const { data, error } =
+                await supabaseClient.auth.getSession();
+
+            if (error) throw error;
+
+            if (!data.session) {
+
+                window.location.replace('login.html');
+                return;
+            }
+
+            await displayUser(data.session.user);
+            await loadNutritionOverview(data.session.user.id);
+            await loadMuscleMap(data.session.user.id);
+            await loadWeeklySchedule(data.session.user.id);
+
+            console.log('REPSYNC dashboard authenticated.');
+
+        } catch (error) {
+
+            console.error('Dashboard authentication error:', error);
+
+            notice.textContent =
+                'Unable to verify your session. Please log in again.';
+
+            notice.className = 'notice error';
+
+        }
+
+    }
+
+
+    // LOGOUT
+
+    async function logout() {
+
+        const buttons = [
+            document.getElementById('logoutBtn'),
+            document.getElementById('mobileLogout')
+        ];
+
+        buttons.forEach(button => {
+            if (button) {
+                button.disabled = true;
+                button.textContent = 'Logging out...';
+            }
+        });
+
+        try {
+
+            const { error } = await supabaseClient.auth.signOut();
+
+            if (error) throw error;
+
+            window.location.replace('login.html');
+
+        } catch (error) {
+
+            console.error('Logout error:', error);
+
+            notice.textContent =
+                'Unable to log out: ' + error.message;
+
+            notice.className = 'notice error';
+
+            buttons.forEach(button => {
+                if (button) {
+                    button.disabled = false;
+                    button.textContent = '↪ Log out';
+                }
+            });
+
+        }
+
+    }
+
+
+    document.getElementById('logoutBtn')
+        .addEventListener('click', logout);
+
+    document.getElementById('mobileLogout')
+        .addEventListener('click', logout);
+
+
+    // START
+
+    initializeDashboard();
+
+})();
+
+</script>
+
+<nav class="mobile-bottom-nav" aria-label="Main navigation">
+<a class="mobile-nav-link active" href="dashboard.html" aria-current="page"><span class="mobile-nav-icon">⌂</span><span>Dashboard</span></a>
+<a class="mobile-nav-link" href="nutrition.html"><span class="mobile-nav-icon">◉</span><span>Nutrition</span></a>
+<a class="mobile-nav-link" href="workout-logs.html"><span class="mobile-nav-icon">↗</span><span>Workout Logs</span></a>
+<a class="mobile-nav-link" href="muscle-targets.html"><span class="mobile-nav-icon">◎</span><span>Feed</span></a>
+<a class="mobile-nav-link" href="friends.html"><span class="mobile-nav-icon">♧</span><span>Friends</span></a>
+<a class="mobile-nav-link" href="my-profile.html"><span class="mobile-nav-icon">●</span><span>Profile</span></a>
+</nav>
+</body>
+</html>

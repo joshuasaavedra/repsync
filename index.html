@@ -1,0 +1,470 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>REPSYNC – Macros, Workouts and Muscle Targets</title>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================
+   GLOBAL VARIABLES
+========================= */
+
+:root {
+  --bg: #FFFFFF;
+  --text: #F65100;
+  --line: #EEEEEE;
+  --heading: #151515;
+  --body-text: #555555;
+  --orange-hover: #D94300;
+
+  --display: 'Bricolage Grotesque', sans-serif;
+  --brand: 'Anton', sans-serif;
+  --body: 'Instrument Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--body-text);
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--text);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 24px clamp(20px, 5vw, 64px);
+
+  background: #F65100;
+  color: #FFFFFF;
+
+  border-bottom: none;
+}
+
+/* BRAND NAME */
+
+.brand-name {
+  text-decoration: none;
+  font-family: var(--brand);
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: .04em;
+  color: #FFFFFF;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+
+  border-radius: 8px;
+
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 15px;
+
+  border: 2px solid transparent;
+
+  transition: .2s ease;
+}
+
+/* LOGIN BUTTON */
+
+header .btn.ghost {
+  background: transparent;
+  color: #FFFFFF;
+  border-color: transparent;
+}
+
+header .btn.ghost:hover {
+  color: #000000;
+}
+
+/* HEADER SIGN UP BUTTON */
+
+header .btn.solid {
+  background: #FFFFFF;
+  color: #F65100;
+  border-color: #FFFFFF;
+}
+
+header .btn.solid:hover {
+  background: #000000;
+  color: #FFFFFF;
+  border-color: #000000;
+}
+
+/* =========================
+   GENERAL ORANGE BUTTONS
+========================= */
+
+main .btn.solid {
+  background: var(--text);
+  color: #FFFFFF;
+  border-color: var(--text);
+}
+
+main .btn.solid:hover {
+  background: var(--orange-hover);
+  border-color: var(--orange-hover);
+  color: #FFFFFF;
+}
+
+/* =========================
+   HERO SECTION
+========================= */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+
+  gap: 48px;
+  align-items: center;
+
+  padding: 72px clamp(20px, 5vw, 64px);
+}
+
+/* HERO HEADING */
+
+.hero h1 {
+  font-family: var(--display);
+  font-weight: 800;
+
+  font-size: clamp(38px, 5.5vw, 68px);
+  line-height: 1;
+
+  letter-spacing: -.03em;
+
+  margin-bottom: 20px;
+  max-width: 12ch;
+
+  color: var(--heading);
+}
+
+/* HERO DESCRIPTION */
+
+.hero p {
+  font-size: 18px;
+  max-width: 46ch;
+
+  margin-bottom: 28px;
+
+  color: var(--body-text);
+}
+
+/* HERO BUTTON */
+
+.hero .btn {
+  padding: 14px 26px;
+  font-size: 16px;
+}
+
+/* =========================
+   HERO LOGO
+========================= */
+
+.hero-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-logo img {
+  width: 100%;
+  max-width: 420px;
+
+  height: auto;
+  display: block;
+}
+
+/* =========================
+   FEATURES
+========================= */
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 32px;
+
+  padding: 56px clamp(20px, 5vw, 64px);
+
+  border-top: 1px solid var(--line);
+
+  color: var(--body-text);
+}
+
+.features h2 {
+  font-family: var(--display);
+  font-size: 22px;
+
+  margin-bottom: 6px;
+
+  color: var(--heading);
+}
+
+.features p {
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+  padding: 24px clamp(20px, 5vw, 64px);
+
+  font-size: 14px;
+
+  border-top: 1px solid var(--line);
+
+  color: #777777;
+}
+
+/* =========================
+   TABLET RESPONSIVENESS
+========================= */
+
+@media (max-width: 820px) {
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 40px;
+  }
+
+  .hero-logo {
+    order: -1;
+  }
+
+  .hero-logo img {
+    max-width: 240px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+}
+
+/* =========================
+   MOBILE RESPONSIVENESS
+========================= */
+
+@media (max-width: 480px) {
+
+  header {
+    padding: 20px;
+  }
+
+  .brand-name {
+    font-size: 25px;
+  }
+
+  nav {
+    gap: 4px;
+  }
+
+  header .btn {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .hero {
+    gap: 28px;
+    padding: 36px 20px 48px;
+  }
+
+  .hero h1 {
+    font-size: 42px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .hero-logo img {
+    max-width: 220px;
+  }
+
+  .features {
+    padding: 40px 20px;
+  }
+
+  footer {
+    padding: 20px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+  <a class="brand-name" href="index.html">
+    REPSYNC
+  </a>
+
+  <nav aria-label="Account">
+
+    <a class="btn ghost" href="login.html">
+      Log in
+    </a>
+
+    <a class="btn solid" href="login.html#signup">
+      Sign up
+    </a>
+
+  </nav>
+
+</header>
+
+
+<main>
+
+  <!-- =========================
+       HERO SECTION
+  ========================= -->
+
+  <section class="hero">
+
+    <div>
+
+      <h1>
+        Know what you’re training today.
+      </h1>
+
+      <p>
+        Track your macros, plan your weekly workouts
+        and see which muscles you’re hitting each day.
+      </p>
+
+      <a class="btn solid" href="login.html#signup">
+        Create a free account
+      </a>
+
+    </div>
+
+
+    <!-- LOGO -->
+
+    <div class="hero-logo">
+
+      <img
+        src="images/Glossy Orange Glass Lightning Bolt.png"
+        alt="REPSYNC lightning bolt logo"
+      >
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       FEATURES SECTION
+  ========================= -->
+
+  <section class="features">
+
+    <div>
+
+      <h2>Macros</h2>
+
+      <p>
+        Log meals and see protein, carbs and fats
+        against your daily goal.
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <h2>Workout schedule</h2>
+
+      <p>
+        Build a weekly plan and know exactly
+        what’s on for each day.
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <h2>Target muscles</h2>
+
+      <p>
+        See which muscle groups each session works
+        so nothing gets skipped.
+      </p>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+  © 2026 REPSYNC
+
+</footer>
+
+</body>
+</html>

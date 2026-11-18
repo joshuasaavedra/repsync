@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REPSYNC – Workout Logs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#F65100;--orange-hover:#D94300;--black:#151515;--gray:#777;--border:#eee;--light:#fafafa;--white:#fff;--brand:'Anton',sans-serif;--display:'Bricolage Grotesque',sans-serif;--body:'Instrument Sans',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--body);background:var(--light);color:var(--black)}button,input,select{font:inherit}button{cursor:pointer}.dashboard{display:flex;min-height:100vh}.sidebar{width:245px;background:#fff;border-right:1px solid var(--border);padding:30px 22px;display:flex;flex-direction:column;position:fixed;height:100vh;z-index:10}.logo{font-family:var(--brand);font-size:32px;letter-spacing:.04em;color:var(--orange);text-decoration:none;margin-bottom:45px}.nav-label{font-size:11px;font-weight:700;color:#aaa;letter-spacing:.12em;margin-bottom:15px}.nav-menu{display:flex;flex-direction:column;gap:8px}.nav-item{display:flex;align-items:center;gap:13px;padding:13px 15px;border-radius:9px;color:#777;font-size:14px;font-weight:600;text-decoration:none}.nav-item:hover,.nav-item.active{background:#FFF1E9;color:var(--orange)}.nav-icon{font-size:18px;width:22px;text-align:center}.sidebar-bottom{margin-top:auto;border-top:1px solid var(--border);padding-top:20px}.profile-mini{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit;cursor:pointer;width:100%}.profile-mini:hover .profile-info strong{color:var(--orange)}.avatar{width:37px;height:37px;border-radius:50%;background:#FFF1E9;color:var(--orange);display:grid;place-items:center;font-weight:800;overflow:hidden;flex-shrink:0}.avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}.profile-info strong{display:block;font-size:13px}.profile-info span{font-size:11px;color:#999}.logout-btn{border:0;background:none;color:#777;padding:14px 0 0;font-size:13px;font-weight:600}.main-content{margin-left:245px;width:calc(100% - 245px);padding:36px 42px 60px}.mobile-header{display:none}.topbar{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px}.eyebrow{font-size:11px;letter-spacing:.13em;font-weight:700;color:var(--orange);text-transform:uppercase;margin-bottom:8px}.topbar h1{font:40px var(--display);letter-spacing:-1.5px}.topbar p{color:var(--gray);font-size:14px;margin-top:5px}.date{font-size:13px;color:#888}.message{display:none;padding:12px 15px;border-radius:9px;margin-bottom:18px;font-size:13px}.message.show{display:block}.message.error{background:#fff0ed;color:#b83216}.message.success{background:#edfff3;color:#16743a}.layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,.8fr);gap:22px;align-items:start}.panel{background:#fff;border:1px solid var(--border);border-radius:15px;padding:23px;margin-bottom:20px}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.panel h2{font:700 19px var(--display)}.muted{font-size:12px;color:#999}.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:700;color:#555}.field input,.field select,.set-input{width:100%;border:1px solid #e7e7e7;border-radius:8px;padding:11px 12px;background:#fff;outline:none;font-size:13px}.field input:focus,.field select:focus,.set-input:focus{border-color:var(--orange)}.btn{border:0;border-radius:8px;padding:11px 16px;font-size:13px;font-weight:700}.btn-primary{background:var(--orange);color:white}.btn-primary:hover{background:var(--orange-hover)}.btn-light{background:#fff1e9;color:var(--orange)}.btn-outline{background:white;border:1px solid #e8e8e8;color:#555}.exercise-card{border:1px solid #eee;border-radius:12px;padding:16px;margin-top:15px}.exercise-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:13px}.exercise-top strong{font:700 16px var(--display)}.exercise-sub{font-size:11px;color:#999;margin-top:3px}.remove{border:0;background:none;color:#999;font-size:12px}.sets-head,.set-row{display:grid;grid-template-columns:42px 1fr 1fr 30px;gap:9px;align-items:center}.sets-head{font-size:10px;color:#999;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px}.set-row{margin-bottom:8px}.set-number{font-size:12px;color:#888;text-align:center}.set-input{padding:9px;font-size:12px}.remove-set{border:0;background:none;color:#bbb;font-size:18px}.exercise-actions{display:flex;justify-content:space-between;align-items:center;margin-top:12px}.exercise-actions span{font-size:11px;color:#999}.form-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}.unit-toggle{display:flex;background:#f5f5f5;padding:3px;border-radius:8px;gap:2px}.unit-toggle button{border:0;padding:7px 12px;border-radius:6px;background:transparent;color:#777;font-size:11px;font-weight:700}.unit-toggle button.active{background:#fff;color:var(--orange);box-shadow:0 1px 4px #00000012}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#fafafa;border-radius:10px;padding:13px}.stat span{display:block;color:#999;font-size:10px;margin-bottom:6px}.stat strong{font:700 22px var(--display)}.history-item{padding:14px 0;border-bottom:1px solid #f0f0f0}.history-item:last-child{border-bottom:0}.history-item strong{font-size:13px}.history-item p{font-size:11px;color:#999;margin-top:5px}.empty{padding:25px 10px;text-align:center;color:#999;font-size:13px}.history-exercises{font-size:12px;color:#666;margin-top:8px;line-height:1.6}.small-btn{border:0;background:none;color:var(--orange);font-size:11px;font-weight:700;margin-top:8px}.hint{font-size:11px;color:#999;line-height:1.5;margin-top:12px}
+@media(max-width:900px){.sidebar{width:205px}.main-content{margin-left:205px;width:calc(100% - 205px);padding:28px 22px}.layout{grid-template-columns:1fr}}@media(max-width:650px){.sidebar{display:none}.main-content{margin:0;width:100%;padding:20px 15px}.mobile-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}.mobile-header .logo{margin:0;font-size:27px}.topbar h1{font-size:32px}.date{display:none}.field-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.panel{padding:17px}.sets-head,.set-row{grid-template-columns:30px 1fr 1fr 24px;gap:6px}.stats{gap:7px}.stat{padding:10px}.stat strong{font-size:18px}}
+
+.profile-mini{position:relative;z-index:20;display:flex!important;align-items:center;gap:11px;width:100%;min-height:48px;padding:6px;margin:-6px 0 12px;text-decoration:none!important;color:inherit;cursor:pointer;pointer-events:auto;touch-action:manipulation;border-radius:10px}
+.profile-mini *{pointer-events:none}
+.profile-mini:hover .profile-info strong{color:#F65100}
+.profile-mini:focus-visible{outline:2px solid #F65100;outline-offset:3px}
+
+.founder-badge{display:inline-flex;align-items:center;gap:4px;margin-left:8px;padding:4px 8px;border-radius:999px;background:#FFF1E9;color:#F65100;font:800 10px/1 'Instrument Sans',sans-serif;letter-spacing:.07em;vertical-align:middle;white-space:nowrap;border:1px solid #FFD4BE}
+
+/* Yearly Activity moved into Workout Logs */
+.yearly-activity{margin-top:24px;scroll-margin-top:22px}
+.yearly-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;margin-bottom:18px}
+.yearly-heading h2{font:700 24px var(--display);margin:0 0 5px}
+.yearly-heading .muted{font-size:12px}
+.yearly-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.yearly-stats .stat{background:#fafafa;border:1px solid #eee;border-radius:10px;padding:13px 15px}
+.yearly-stats .stat span{display:block;color:#999;font-size:10px;margin-bottom:6px}
+.yearly-stats .stat strong{font:700 23px var(--display)}
+.calendar-panel{border:1px solid #eee;border-radius:12px;padding:16px;background:#fff}
+.calendar-panel .panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}
+.calendar-panel h3{font:700 17px var(--display)}
+.calendar-legend{display:flex;align-items:center;gap:7px;font-size:11px;color:#777;flex-wrap:wrap}
+.calendar-swatch{width:12px;height:12px;border-radius:3px;background:#eee;border:1px solid #e6e6e6}
+.calendar-swatch.done{background:var(--orange);border-color:var(--orange)}
+.months{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.month{border:1px solid #eee;border-radius:10px;padding:12px;min-width:0}
+.month h4{font:700 14px var(--display);margin-bottom:10px}
+.weekdays,.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.weekdays{margin-bottom:5px}
+.weekdays span{text-align:center;font-size:9px;color:#aaa;font-weight:700}
+.day{aspect-ratio:1;min-width:0;border-radius:4px;background:#f0f0f0;border:1px solid transparent;display:grid;place-items:center;font-size:10px;color:#888;position:relative}
+.day.empty{background:transparent;border-color:transparent}
+.day.completed{background:var(--orange);color:white;border-color:var(--orange);font-weight:700}
+.day.today{outline:2px solid #222;outline-offset:1px}
+.day.clickable{cursor:pointer}
+.day.clickable:hover{transform:scale(1.08);z-index:1}
+.day.selected{box-shadow:0 0 0 2px #151515;outline:2px solid white}
+.calendar-details{display:none;margin-top:14px;padding:14px;background:#fff8f4;border:1px solid #ffe0d0;border-radius:10px}
+.calendar-details.show{display:block}
+.calendar-details h4{font:700 14px var(--display);margin-bottom:7px}
+.calendar-details p{font-size:12px;color:#666;line-height:1.6;margin:4px 0}
+@media(max-width:1000px){.months{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){
+ .yearly-heading{align-items:flex-start;flex-direction:column}
+ .yearly-heading h2{font-size:21px}
+ .yearly-stats{gap:7px}
+ .yearly-stats .stat{padding:10px 8px}
+ .yearly-stats .stat span{font-size:9px}
+ .yearly-stats .stat strong{font-size:19px}
+ .months{grid-template-columns:1fr;gap:10px}
+ .month{padding:13px}
+ .weekdays,.days{gap:6px}
+ .day{font-size:11px;border-radius:5px}
+ .calendar-panel{padding:13px}
+}
+
+</style>
+<style id="repsync-mobile-navigation">
+/* Shared REPSYNC mobile bottom navigation */
+.mobile-bottom-nav{
+  display:none;
+}
+@media (max-width:650px){
+  .mobile-bottom-nav{
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    grid-template-rows:repeat(2,1fr);
+    position:fixed;
+    left:0;right:0;bottom:0;
+    z-index:9999;
+    min-height:104px;
+    padding:8px 8px calc(8px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.98);
+    border-top:1px solid #e9e9e9;
+    box-shadow:0 -5px 22px rgba(0,0,0,.08);
+    gap:4px;
+    backdrop-filter:blur(12px);
+  }
+  .mobile-bottom-nav .mobile-nav-link{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    min-width:0;
+    min-height:42px;
+    padding:4px 2px;
+    border-radius:9px;
+    color:#858585;
+    text-decoration:none;
+    font-family:'Instrument Sans',sans-serif;
+    font-size:10px;
+    line-height:1.15;
+    font-weight:700;
+    text-align:center;
+    white-space:nowrap;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .mobile-bottom-nav .mobile-nav-icon{
+    display:block;
+    font-size:19px;
+    line-height:1;
+  }
+  .mobile-bottom-nav .mobile-nav-link.active{
+    color:#F65100;
+    background:#FFF1E9;
+  }
+  .mobile-bottom-nav .mobile-nav-link:focus-visible{
+    outline:2px solid #F65100;
+    outline-offset:1px;
+  }
+  body{
+    padding-bottom:116px !important;
+  }
+  .main,.main-content{
+    padding-bottom:130px !important;
+  }
+  /* Use the fixed shared navigation instead of older top-scrolling navs. */
+  nav.mobile-nav{display:none !important}
+}
+</style>
+
+</head>
+<body><div class="dashboard">
+<aside class="sidebar"><a href="dashboard.html" class="logo">REPSYNC</a><p class="nav-label">WORKSPACE</p><nav class="nav-menu"><a href="dashboard.html" class="nav-item"><span class="nav-icon">⌂</span>Dashboard</a><a href="nutrition.html" class="nav-item"><span class="nav-icon">◉</span>Nutrition</a><a href="workout-logs.html" class="nav-item active"><span class="nav-icon">↗</span>Workout Logs</a><a href="muscle-targets.html" class="nav-item"><span class="nav-icon">◎</span>Feed</a>
+<a href="friends.html" class="nav-item"><span class="nav-icon">♧</span>Friends</a>
+</nav><div class="sidebar-bottom"><a class="profile-mini" href="profile.html" aria-label="Open profile" ><div class="avatar" id="userAvatar">R</div><div class="profile-info"><strong id="sidebarName">Loading...</strong><span>View profile</span></div></a><button class="logout-btn" id="logoutBtn">↪ Log out</button></div></aside>
+<main class="main-content"><div class="mobile-header"><a href="dashboard.html" class="logo">REPSYNC</a><button class="logout-btn" id="mobileLogout">Log out ↪</button></div>
+<div class="topbar"><div><div class="eyebrow">TRAINING JOURNAL</div><h1>Workout Logs</h1><p>Build strength. Track every rep. See your progress.</p></div><div class="date" id="todayDate"></div></div>
+<div id="message" class="message"></div>
+<div class="layout"><section>
+<div class="panel"><div class="panel-head"><h2>Log a workout</h2><div class="unit-toggle"><button type="button" class="active" data-unit="kg">KG</button><button type="button" data-unit="lbs">LBS</button></div></div>
+<form id="workoutForm"><div class="field-grid">
+<div class="field"><label for="workoutName">Workout name</label><input id="workoutName" placeholder="e.g. Glutes & Hamstrings" required></div>
+<div class="field"><label for="workoutDate">Date</label><input id="workoutDate" type="date" required></div>
+<div class="field"><label for="muscleGroup">Workout target</label><select id="muscleGroup" required><option value="">Select target</option><option>Glutes</option><option>Quads</option><option>Hamstrings</option><option>Legs</option><option>Chest</option><option>Back</option><option>Shoulders</option><option>Arms</option><option>Core</option><option>Full Body</option><option>Cardio</option><option>Other</option></select></div>
+<div class="field"><label for="duration">Duration (minutes)</label><input id="duration" type="number" min="1" placeholder="e.g. 60"></div>
+</div><div class="panel-head" style="margin:24px 0 8px"><h2>Exercises</h2><span class="muted" id="exerciseCount">0 exercises</span></div><div id="exerciseList"></div>
+<div class="form-actions"><button type="button" class="btn btn-light" id="addExercise">+ Add exercise</button><button type="submit" class="btn btn-primary" id="saveWorkout">Save workout</button></div><p class="hint">Enter the reps and weight for each set. Bodyweight exercises can use 0 kg/lbs. Each set can have a different weight.</p></form></div>
+</section><aside>
+<div class="panel"><div class="panel-head"><h2>Session summary</h2><span class="muted">This workout</span></div><div class="stats"><div class="stat"><span>Exercises</span><strong id="summaryExercises">0</strong></div><div class="stat"><span>Total sets</span><strong id="summarySets">0</strong></div><div class="stat"><span>Total reps</span><strong id="summaryReps">0</strong></div></div></div>
+<div class="panel"><div class="panel-head"><h2>Workout history</h2><span class="muted">Recent sessions</span></div><div id="historyList"><div class="empty">Your saved workouts will appear here.</div></div></div>
+</aside></div><section class="panel yearly-activity" id="yearly-activity"><div class="yearly-heading"><div><div class="eyebrow">TRAINING CONSISTENCY</div><h2>Yearly Activity</h2><p class="muted">Every square tells a story. Build consistency, one workout at a time.</p></div><select id="yearSelect" class="year-select" aria-label="Select year"></select></div>
+<div id="calendarMessage" class="message"></div>
+<section class="yearly-stats"><div class="stat"><span>WORKOUT DAYS</span><strong id="workoutDays">—</strong></div><div class="stat"><span>REST DAYS</span><strong id="restDays">—</strong></div><div class="stat"><span>CONSISTENCY</span><strong id="consistency">—</strong></div></section>
+<div class="calendar-panel"><div class="panel-head"><div><h3 id="calendarTitle">Workout calendar</h3><p class="muted">Orange = workout completed · Gray = no workout logged</p></div><div class="calendar-legend"><span class="calendar-swatch done"></span>Completed <span class="calendar-swatch"></span>Rest</div></div><div class="months" id="monthsGrid"><div class="empty-state">Loading your workout history...</div></div><div class="calendar-details" id="dayDetails"><h4 id="detailsTitle">Workout details</h4><div id="detailsContent"></div></div></div></section>
+</main></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="images/js/supabase.js"></script>
+<script>
+(() => {
+ const client = window.supabaseClient;
+ let currentUser=null, unit='kg', exercises=[], calendarWorkouts=[], selectedCalendarDate=null;
+ const $=id=>document.getElementById(id);
+ const today=new Date(); const localDate=new Date(today.getTime()-today.getTimezoneOffset()*60000).toISOString().slice(0,10);
+ $('todayDate').textContent=today.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}); $('workoutDate').value=localDate;
+ function message(text,type='error'){const el=$('message');el.textContent=text;el.className='message show '+type;window.scrollTo({top:0,behavior:'smooth'});}
+ function displayUser(user){const name=user.user_metadata?.full_name||user.email?.split('@')[0]||'Athlete';$('sidebarName').textContent=name;const avatar=$('userAvatar');avatar.textContent=name.charAt(0).toUpperCase();client.from('profiles').select('full_name,avatar_url').eq('id',user.id).maybeSingle().then(({data,error})=>{if(error){console.warn('Profile photo unavailable:',error.message);return;}if(data?.full_name)$('sidebarName').textContent=data.full_name;if(data?.avatar_url){avatar.innerHTML='';const img=document.createElement('img');img.src=data.avatar_url;img.alt='Profile picture';img.style.cssText='width:100%;height:100%;object-fit:cover;border-radius:50%';avatar.appendChild(img);}});}
+ function updateSummary(){const sets=exercises.reduce((n,e)=>n+e.sets.length,0),reps=exercises.reduce((n,e)=>n+e.sets.reduce((a,s)=>a+(Number(s.reps)||0),0),0);$('summaryExercises').textContent=exercises.length;$('summarySets').textContent=sets;$('summaryReps').textContent=reps;$('exerciseCount').textContent=exercises.length+' exercises';}
+ function renderExercises(){const host=$('exerciseList');host.innerHTML='';exercises.forEach((ex,i)=>{const card=document.createElement('div');card.className='exercise-card';card.innerHTML=`<div class="exercise-top"><div style="flex:1"><input class="set-input exercise-name" aria-label="Exercise name" placeholder="Exercise name (e.g. Hip Thrust)" value="${escapeHtml(ex.name)}"></div><button type="button" class="remove" data-remove-ex="${i}">Remove</button></div><div class="field" style="margin-bottom:12px"><label>Primary muscle</label><select class="set-input exercise-muscle"><option ${ex.muscle==='Glutes'?'selected':''}>Glutes</option><option ${ex.muscle==='Quads'?'selected':''}>Quads</option><option ${ex.muscle==='Hamstrings'?'selected':''}>Hamstrings</option><option ${ex.muscle==='Chest'?'selected':''}>Chest</option><option ${ex.muscle==='Back'?'selected':''}>Back</option><option ${ex.muscle==='Shoulders'?'selected':''}>Shoulders</option><option ${ex.muscle==='Biceps'?'selected':''}>Biceps</option><option ${ex.muscle==='Triceps'?'selected':''}>Triceps</option><option ${ex.muscle==='Core'?'selected':''}>Core</option><option ${ex.muscle==='Full Body'?'selected':''}>Full Body</option><option ${ex.muscle==='Other'?'selected':''}>Other</option></select></div><div class="sets-head"><span>Set</span><span>Reps</span><span>Weight (${unit.toUpperCase()})</span><span></span></div><div class="sets-container">${ex.sets.map((s,j)=>`<div class="set-row"><span class="set-number">${j+1}</span><input class="set-input reps-input" type="number" min="0" placeholder="12" value="${s.reps??''}" aria-label="Set ${j+1} reps"><input class="set-input weight-input" type="number" min="0" step="0.25" placeholder="0" value="${s.weight??''}" aria-label="Set ${j+1} weight"><button type="button" class="remove-set" data-remove-set="${i},${j}" aria-label="Remove set">×</button></div>`).join('')}</div><div class="exercise-actions"><span>${ex.sets.length} sets</span><button type="button" class="small-btn" data-add-set="${i}">+ Add set</button></div>`;host.appendChild(card);
+ card.querySelector('.exercise-name').addEventListener('input',e=>ex.name=e.target.value);card.querySelector('.exercise-muscle').addEventListener('change',e=>ex.muscle=e.target.value);card.querySelectorAll('.reps-input').forEach((el,j)=>el.addEventListener('input',e=>ex.sets[j].reps=e.target.value));card.querySelectorAll('.weight-input').forEach((el,j)=>el.addEventListener('input',e=>ex.sets[j].weight=e.target.value));});updateSummary();}
+ function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+ function addExercise(){exercises.push({name:'',muscle:$('muscleGroup').value||'Glutes',sets:[{reps:12,weight:''},{reps:12,weight:''},{reps:12,weight:''}]});renderExercises();}
+ $('addExercise').addEventListener('click',addExercise);
+ $('exerciseList').addEventListener('click',e=>{if(e.target.dataset.removeEx!==undefined){exercises.splice(Number(e.target.dataset.removeEx),1);renderExercises();}if(e.target.dataset.addSet!==undefined){exercises[Number(e.target.dataset.addSet)].sets.push({reps:12,weight:''});renderExercises();}if(e.target.dataset.removeSet){const [i,j]=e.target.dataset.removeSet.split(',').map(Number);exercises[i].sets.splice(j,1);renderExercises();}});
+ document.querySelectorAll('[data-unit]').forEach(b=>b.addEventListener('click',()=>{unit=b.dataset.unit;document.querySelectorAll('[data-unit]').forEach(x=>x.classList.toggle('active',x===b));renderExercises();}));
+
+ const calendarToday=new Date(), calendarYear=calendarToday.getFullYear();
+ function calendarYmd(date){return [date.getFullYear(),String(date.getMonth()+1).padStart(2,'0'),String(date.getDate()).padStart(2,'0')].join('-')}
+ function initCalendarYears(){const select=$('yearSelect');for(let y=calendarYear;y>=calendarYear-9;y--){const opt=document.createElement('option');opt.value=y;opt.textContent=y;if(y===calendarYear)opt.selected=true;select.appendChild(opt)}}
+ function renderYearCalendar(){
+  const year=Number($('yearSelect').value), rows=calendarWorkouts.filter(w=>String(w.workout_date).startsWith(String(year))), byDate={};
+  rows.forEach(w=>(byDate[w.workout_date]??=[]).push(w));
+  const daysInYear=(new Date(year,1,29).getMonth()===1)?366:365, count=Object.keys(byDate).length;
+  $('workoutDays').textContent=count;$('restDays').textContent=daysInYear-count;$('consistency').textContent=(count/daysInYear*100).toFixed(1)+'%';$('calendarTitle').textContent=year+' workout calendar';
+  const host=$('monthsGrid');host.innerHTML='';
+  for(let month=0;month<12;month++){
+   const card=document.createElement('div');card.className='month';const title=document.createElement('h4');title.textContent=new Date(year,month,1).toLocaleDateString('en-US',{month:'long'});card.appendChild(title);
+   const weekdays=document.createElement('div');weekdays.className='weekdays';['S','M','T','W','T','F','S'].forEach(d=>{const s=document.createElement('span');s.textContent=d;weekdays.appendChild(s)});card.appendChild(weekdays);
+   const grid=document.createElement('div');grid.className='days';const firstDay=new Date(year,month,1).getDay();for(let i=0;i<firstDay;i++){const blank=document.createElement('span');blank.className='day empty';grid.appendChild(blank)}
+   const total=new Date(year,month+1,0).getDate();for(let d=1;d<=total;d++){const date=calendarYmd(new Date(year,month,d)),has=!!byDate[date],cell=document.createElement('button');cell.type='button';cell.className='day clickable'+(has?' completed':'')+(date===calendarYmd(calendarToday)?' today':'')+(selectedCalendarDate===date?' selected':'');cell.textContent=d;cell.title=has?`${date}: ${byDate[date].length} workout(s)`:`${date}: No workout logged`;cell.setAttribute('aria-label',cell.title);cell.addEventListener('click',()=>showCalendarDay(date,byDate[date]||[]));grid.appendChild(cell)}
+   card.appendChild(grid);host.appendChild(card);
+  }
+  if(selectedCalendarDate&&selectedCalendarDate.startsWith(String(year)))showCalendarDay(selectedCalendarDate,byDate[selectedCalendarDate]||[]);else{$('dayDetails').classList.remove('show');selectedCalendarDate=null}
+ }
+ function showCalendarDay(date,items){
+  selectedCalendarDate=date;document.querySelectorAll('.calendar-panel .day.selected').forEach(el=>el.classList.remove('selected'));
+  const [y,m,d]=date.split('-').map(Number);$('detailsTitle').textContent=new Date(y,m-1,d).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  const content=$('detailsContent');content.innerHTML='';
+  if(!items.length){const p=document.createElement('p');p.textContent='No workout logged for this day. Rest days stay gray on your calendar.';content.appendChild(p)}
+  else{items.forEach(w=>{const p=document.createElement('p'),strong=document.createElement('strong'),span=document.createElement('span');strong.textContent=w.workout_name;span.textContent=w.muscle_group||'Workout';p.append(strong,' · ',span);content.appendChild(p)})}
+  const monthCard=[...document.querySelectorAll('.calendar-panel .month')][m-1],dayButton=monthCard&&[...monthCard.querySelectorAll('.day.clickable')].find(b=>Number(b.textContent)===d);if(dayButton)dayButton.classList.add('selected');$('dayDetails').classList.add('show');
+ }
+ async function loadYearCalendar(){const {data,error}=await client.from('workout_logs').select('id,workout_name,workout_date,muscle_group').eq('user_id',currentUser.id).order('workout_date',{ascending:true});if(error)throw error;calendarWorkouts=data||[];renderYearCalendar()}
+
+ async function loadHistory(){const {data,error}=await client.from('workout_logs').select('id,workout_name,workout_date,muscle_group,duration_minutes,weight_unit,workout_exercises(exercise_name,muscle_target,workout_sets(reps,weight))').eq('user_id',currentUser.id).order('workout_date',{ascending:false}).limit(8);if(error)throw error;const host=$('historyList');if(!data?.length){host.innerHTML='<div class="empty">No workouts logged yet. Your first session starts here!</div>';return;}host.innerHTML='';data.forEach(w=>{const totalSets=(w.workout_exercises||[]).reduce((a,e)=>a+(e.workout_sets||[]).length,0);const totalReps=(w.workout_exercises||[]).reduce((a,e)=>a+(e.workout_sets||[]).reduce((b,s)=>b+Number(s.reps||0),0),0);const item=document.createElement('div');item.className='history-item';item.innerHTML=`<strong>${escapeHtml(w.workout_name)}</strong><p>${escapeHtml(w.workout_date)} · ${escapeHtml(w.muscle_group)}${w.duration_minutes?' · '+w.duration_minutes+' min':''}</p><p>${(w.workout_exercises||[]).length} exercises · ${totalSets} sets · ${totalReps} reps</p><div class="history-exercises">${(w.workout_exercises||[]).map(e=>`${escapeHtml(e.exercise_name)} — ${(e.workout_sets||[]).map(s=>`${s.reps} reps × ${s.weight} ${w.weight_unit}`).join(', ')}`).join('<br>')}</div><button class="small-btn" data-delete="${w.id}">Delete workout</button>`;host.appendChild(item);});}
+ $('historyList').addEventListener('click',async e=>{const id=e.target.dataset.delete;if(!id)return;if(!confirm('Delete this workout and all its exercise sets?'))return;const {error}=await client.from('workout_logs').delete().eq('id',id).eq('user_id',currentUser.id);if(error){message('Could not delete workout: '+error.message);return;}message('Workout deleted.','success');await Promise.all([loadHistory(),loadYearCalendar()]);});
+ $('workoutForm').addEventListener('submit',async e=>{e.preventDefault();if(!exercises.length){message('Add at least one exercise before saving.');return;}for(const ex of exercises){if(!ex.name.trim()){message('Please enter a name for every exercise.');return;}if(!ex.sets.length){message('Every exercise needs at least one set.');return;}if(ex.sets.some(s=>s.reps===''||s.weight==='')){message('Please enter reps and weight for every set. Use 0 for bodyweight exercises.');return;}}
+ const btn=$('saveWorkout');btn.disabled=true;btn.textContent='Saving...';try{const {data:workout,error}=await client.from('workout_logs').insert({user_id:currentUser.id,workout_name:$('workoutName').value.trim(),workout_date:$('workoutDate').value,muscle_group:$('muscleGroup').value,duration_minutes:$('duration').value?Number($('duration').value):null,weight_unit:unit}).select('id').single();if(error)throw error;for(const ex of exercises){const {data:exercise,error:exError}=await client.from('workout_exercises').insert({workout_id:workout.id,exercise_name:ex.name.trim(),muscle_target:ex.muscle}).select('id').single();if(exError)throw exError;const rows=ex.sets.map((s,index)=>({exercise_id:exercise.id,set_number:index+1,reps:Number(s.reps),weight:Number(s.weight)}));const {error:setError}=await client.from('workout_sets').insert(rows);if(setError)throw setError;}message('Workout saved successfully!','success');$('workoutForm').reset();$('workoutDate').value=localDate;exercises=[];renderExercises();await Promise.all([loadHistory(),loadYearCalendar()]);}catch(err){console.error(err);message('Unable to save workout: '+err.message+' If this is your first time, make sure you ran the Workout Logs SQL setup in Supabase.');}finally{btn.disabled=false;btn.textContent='Save workout';}});
+ async function logout(){const {error}=await client.auth.signOut();if(error){message(error.message);return;}location.replace('login.html');}$('logoutBtn').addEventListener('click',logout);$('mobileLogout').addEventListener('click',logout);
+ async function init(){try{if(!client)throw new Error('Supabase client not found. Check that js/supabase.js loads correctly.');const {data,error}=await client.auth.getSession();if(error)throw error;currentUser=data.session?.user;if(!currentUser){location.replace('login.html');return;}displayUser(currentUser);initCalendarYears();$('yearSelect').addEventListener('change',renderYearCalendar);await Promise.all([loadHistory(),loadYearCalendar()]);}catch(err){console.error(err);message('Unable to load workout logs: '+err.message);}}
+ if(location.hash==='#yearly-activity')setTimeout(()=>$('yearly-activity').scrollIntoView({behavior:'smooth'}),350);
+ client?.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_OUT')location.replace('login.html');else if(session?.user){currentUser=session.user;displayUser(currentUser);}});init();
+})();
+</script>
+<script>
+// Keep REPSYNC online presence active across all authenticated app pages.
+(()=>{const sb=window.supabaseClient;if(!sb)return;let presenceChannel=null;sb.auth.getSession().then(({data,error})=>{if(error||!data.session)return;const uid=data.session.user.id;presenceChannel=sb.channel('repsync-active-users',{config:{presence:{key:uid}}});presenceChannel.subscribe(async status=>{if(status==='SUBSCRIBED'){try{await presenceChannel.track({user_id:uid,online_at:new Date().toISOString()})}catch(e){console.warn('Could not update REPSYNC presence',e)}}});window.addEventListener('pagehide',()=>{if(presenceChannel)sb.removeChannel(presenceChannel)},{once:true})}).catch(e=>console.warn('REPSYNC presence unavailable',e));})();
+</script>
+
+<script>
+// Display the founder designation from the shared Supabase profile record.
+(async()=>{try{const sb=window.supabaseClient;if(!sb)return;const {data:{session}}=await sb.auth.getSession();if(!session)return;const targetId=new URLSearchParams(location.search).get('id')||session.user.id;const {data:profile,error}=await sb.from('profiles').select('full_name,is_founder').eq('id',targetId).maybeSingle();if(error)throw error;if(!profile?.is_founder)return;const badge=document.createElement('span');badge.className='founder-badge';badge.textContent='★ FOUNDER';badge.setAttribute('aria-label','REPSYNC Founder');const nameEl=document.getElementById('fullName')||document.getElementById('sideName')||document.getElementById('sidebarName');if(nameEl){nameEl.appendChild(badge.cloneNode(true));}for(const id of ['sideName','sidebarName','welcomeName','fullName']){const el=document.getElementById(id);if(el&&el!==nameEl&&!el.querySelector('.founder-badge'))el.appendChild(badge.cloneNode(true));}const role=document.querySelector('.profile-info span');if(role)role.textContent='REPSYNC Founder';}catch(e){console.warn('Founder badge could not be loaded:',e.message)}})();
+</script>
+<nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+<a class="mobile-nav-link" href="dashboard.html"><span class="mobile-nav-icon">⌂</span><span>Dashboard</span></a>
+<a class="mobile-nav-link" href="nutrition.html"><span class="mobile-nav-icon">◉</span><span>Nutrition</span></a>
+<a class="mobile-nav-link active" href="workout-logs.html" aria-current="page"><span class="mobile-nav-icon">↗</span><span>Workouts</span></a>
+<a class="mobile-nav-link" href="muscle-targets.html"><span class="mobile-nav-icon">◎</span><span>Feed</span></a>
+<a class="mobile-nav-link" href="friends.html"><span class="mobile-nav-icon">♧</span><span>Friends</span></a>
+<a class="mobile-nav-link" href="my-profile.html"><span class="mobile-nav-icon">●</span><span>Profile</span></a>
+</nav>
+</body></html>

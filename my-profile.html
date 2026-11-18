@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REPSYNC – My Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#F65100;--black:#151515;--gray:#777;--border:#eee;--light:#fafafa;--brand:'Anton',sans-serif;--display:'Bricolage Grotesque',sans-serif;--body:'Instrument Sans',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--body);background:var(--light);color:var(--black)}.app{display:flex;min-height:100vh}.sidebar{width:245px;background:#fff;border-right:1px solid var(--border);padding:30px 22px;display:flex;flex-direction:column;position:fixed;inset:0 auto 0 0}.logo{font:32px var(--brand);letter-spacing:.04em;color:var(--orange);text-decoration:none;margin-bottom:45px}.nav-label{font-size:11px;font-weight:700;color:#aaa;letter-spacing:.12em;margin-bottom:15px}.nav-menu{display:flex;flex-direction:column;gap:8px}.nav-item{display:flex;align-items:center;gap:13px;padding:13px 15px;border-radius:9px;color:#777;font-size:14px;font-weight:600;text-decoration:none}.nav-item:hover,.nav-item.active{background:#FFF1E9;color:var(--orange)}.nav-icon{font-size:18px;width:22px;text-align:center}.sidebar-bottom{margin-top:auto;border-top:1px solid var(--border);padding-top:20px}.profile-mini{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit;cursor:pointer;border-radius:10px;padding:6px;margin:-6px;transition:background .2s}.profile-mini:hover{background:#FFF1E9}.avatar{width:40px;height:40px;border-radius:50%;background:#FFF1E9;color:var(--orange);display:grid;place-items:center;font-weight:800;overflow:hidden;flex-shrink:0}.avatar img{width:100%;height:100%;object-fit:cover}.profile-info strong{display:block;font-size:13px}.profile-info span{font-size:11px;color:#999}.logout{border:0;background:none;color:#777;padding:14px 0 0;font-size:13px;font-weight:600;cursor:pointer}.main{margin-left:245px;width:calc(100% - 245px);padding:42px 48px 60px;max-width:1500px}.eyebrow{font-size:11px;letter-spacing:.13em;font-weight:700;color:var(--orange);text-transform:uppercase;margin-bottom:8px}.heading{font:40px var(--display);letter-spacing:-1.5px}.intro{color:var(--gray);font-size:14px;margin-top:5px;margin-bottom:28px}.profile-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:34px;max-width:820px;overflow:hidden}.cover-banner{height:220px;border-radius:14px 14px 0 0;background:linear-gradient(120deg,#222,#555);background-size:cover;background-position:center;margin:-34px -34px 28px;position:relative}.hero{display:flex;align-items:center;gap:26px;padding-bottom:28px;border-bottom:1px solid var(--border)}.portrait{width:132px;height:132px;border-radius:50%;background:#FFF1E9;color:var(--orange);display:grid;place-items:center;overflow:hidden;font:700 42px var(--display);flex-shrink:0}.portrait img{width:100%;height:100%;object-fit:cover}.name{font:32px var(--display);letter-spacing:-.8px;overflow-wrap:anywhere}.username{color:#888;font-size:14px;margin-top:4px}.presence{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:7px 11px;border-radius:999px;background:#eaf8ef;color:#237a43;font-size:12px;font-weight:700}.dot{width:8px;height:8px;border-radius:50%;background:#27ae60;box-shadow:0 0 0 3px #d6f1df}.bio-block{padding:25px 0 8px}.section-label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#999;font-weight:700;margin-bottom:10px}.bio{font-size:15px;line-height:1.75;color:#555;white-space:pre-wrap;overflow-wrap:anywhere}.empty{color:#aaa;font-style:italic}.meta{display:flex;gap:32px;flex-wrap:wrap;margin-top:22px;padding-top:20px;border-top:1px solid var(--border)}.meta-item{display:flex;flex-direction:column;gap:5px}.meta-item span:first-child{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#aaa;font-weight:700}.meta-item strong{font-size:13px;font-weight:600}.actions{display:flex;gap:10px;margin-top:25px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:9px;padding:12px 17px;font-size:13px;font-weight:700}.btn-primary{background:var(--orange);color:#fff}.btn-primary:hover{background:#D94300}.btn-light{background:#FFF1E9;color:var(--orange)}.notice{font-size:12px;color:#888;margin-top:16px;line-height:1.5}.mobile-head{display:none}
+@media(max-width:650px){.cover-banner{height:150px;margin:-22px -22px 22px}.sidebar{display:none}.main{margin:0;width:100%;padding:22px 15px 40px}.mobile-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}.mobile-head .logo{font-size:27px;margin:0}.heading{font-size:32px}.profile-card{padding:22px}.hero{align-items:center;gap:16px}.portrait{width:92px;height:92px;font-size:32px}.name{font-size:25px}.meta{gap:20px}}
+
+.founder-badge{display:inline-flex;align-items:center;gap:4px;margin-left:8px;padding:4px 8px;border-radius:999px;background:#FFF1E9;color:#F65100;font:800 10px/1 'Instrument Sans',sans-serif;letter-spacing:.07em;vertical-align:middle;white-space:nowrap;border:1px solid #FFD4BE}
+
+/* Profile + community posting layout */
+.profile-post-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(340px,.95fr);gap:22px;align-items:start}
+.profile-card{max-width:none;min-width:0}
+.posts-column{min-width:0}
+.post-composer,.post-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:16px}
+.post-composer h2,.posts-heading{font:700 21px var(--display);margin-bottom:14px}
+.composer-user{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+.composer-avatar{width:40px;height:40px;border-radius:50%;overflow:hidden;background:#FFF1E9;color:var(--orange);display:grid;place-items:center;font-weight:800;flex-shrink:0}
+.composer-avatar img{width:100%;height:100%;object-fit:cover}
+.composer-user strong{font-size:13px}.composer-user small{display:block;color:#999;font-size:11px;margin-top:2px}
+#postText{width:100%;min-height:105px;resize:vertical;border:1px solid #e8e8e8;border-radius:10px;padding:13px;font:14px var(--body);outline:none}
+#postText:focus{border-color:var(--orange)}
+.composer-preview{display:none;margin-top:12px;position:relative}.composer-preview.show{display:block}.composer-preview img{display:block;width:100%;max-height:300px;object-fit:cover;border-radius:10px}.remove-preview{position:absolute;right:8px;top:8px;border:0;background:#151515cc;color:#fff;border-radius:50%;width:30px;height:30px;cursor:pointer}
+.composer-actions{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:13px;flex-wrap:wrap}.photo-label{display:inline-flex;align-items:center;gap:7px;background:#FFF1E9;color:var(--orange);padding:10px 13px;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer}.photo-label input{display:none}.post-submit{border:0;background:var(--orange);color:#fff;border-radius:9px;padding:11px 20px;font-size:13px;font-weight:800;cursor:pointer}.post-submit:disabled{opacity:.55;cursor:wait}.post-hint{font-size:11px;color:#999;margin-top:8px}.post-status{font-size:12px;color:#777;margin-top:9px;min-height:16px}.post-item-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}.post-item-head .composer-avatar{width:38px;height:38px}.post-author{font-size:13px;font-weight:800}.post-date{font-size:11px;color:#999;margin-top:3px}.post-body{font-size:14px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0 12px}.post-image{display:block;width:100%;max-height:480px;object-fit:cover;border-radius:11px}.post-delete{margin-left:auto;border:0;background:none;color:#999;font-size:11px;font-weight:700;cursor:pointer}.post-delete:hover{color:#c33}.post-engagement{display:flex;align-items:center;gap:10px;margin-top:12px;padding-top:11px;border-top:1px solid #f1f1f1}.post-like-summary{border:0;background:#fff7f2;color:#d94300;border-radius:20px;padding:7px 11px;font:700 12px var(--body);cursor:pointer}.post-like-summary:hover{background:#ffede2}.post-likers{display:none;margin-top:10px;padding:12px;background:#fafafa;border-radius:10px}.post-likers.open{display:block}.post-likers-title{font-size:11px;font-weight:800;color:#777;margin-bottom:9px}.post-liker{display:flex;align-items:center;gap:8px;margin:7px 0;font-size:12px;color:#444}.post-liker-avatar{width:26px;height:26px;border-radius:50%;overflow:hidden;background:#FFF1E9;color:#F65100;display:grid;place-items:center;font-size:10px;font-weight:800;flex-shrink:0}.post-liker-avatar img{width:100%;height:100%;object-fit:cover}.post-likers-empty{font-size:11px;color:#999}
+.post-comments{margin-top:12px;padding-top:12px;border-top:1px solid #f1f1f1}.post-comments-toggle{border:0;background:transparent;color:#666;font:700 12px var(--body);cursor:pointer;padding:5px 0}.post-comments-list{display:none;margin-top:10px}.post-comments-list.open{display:block}.post-comment{display:flex;gap:8px;margin:10px 0;font-size:12px;color:#444}.post-comment strong{display:block;font-size:11px;margin-bottom:3px}.post-comment small{color:#999;font-size:10px}.post-comment-form{display:flex;gap:8px;margin-top:10px}.post-comment-form input{min-width:0;flex:1;border:1px solid #e8e8e8;border-radius:8px;padding:10px;font:12px var(--body)}.post-comment-form button{border:0;background:var(--orange);color:white;border-radius:8px;padding:0 12px;font-size:11px;font-weight:800;cursor:pointer}.posts-empty{padding:22px;text-align:center;color:#999;font-size:13px;background:#fff;border:1px solid var(--border);border-radius:14px}
+@media(max-width:1000px){.profile-post-layout{grid-template-columns:1fr}.profile-card{max-width:none}}
+@media(max-width:650px){.profile-post-layout{grid-template-columns:1fr;gap:14px}.post-composer,.post-card{padding:17px}.posts-column{order:2}}
+
+</style>
+<style id="repsync-mobile-navigation">
+/* Shared REPSYNC mobile bottom navigation */
+.mobile-bottom-nav{
+  display:none;
+}
+@media (max-width:650px){
+  .mobile-bottom-nav{
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    grid-template-rows:repeat(2,1fr);
+    position:fixed;
+    left:0;right:0;bottom:0;
+    z-index:9999;
+    min-height:104px;
+    padding:8px 8px calc(8px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.98);
+    border-top:1px solid #e9e9e9;
+    box-shadow:0 -5px 22px rgba(0,0,0,.08);
+    gap:4px;
+    backdrop-filter:blur(12px);
+  }
+  .mobile-bottom-nav .mobile-nav-link{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    min-width:0;
+    min-height:42px;
+    padding:4px 2px;
+    border-radius:9px;
+    color:#858585;
+    text-decoration:none;
+    font-family:'Instrument Sans',sans-serif;
+    font-size:10px;
+    line-height:1.15;
+    font-weight:700;
+    text-align:center;
+    white-space:nowrap;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .mobile-bottom-nav .mobile-nav-icon{
+    display:block;
+    font-size:19px;
+    line-height:1;
+  }
+  .mobile-bottom-nav .mobile-nav-link.active{
+    color:#F65100;
+    background:#FFF1E9;
+  }
+  .mobile-bottom-nav .mobile-nav-link:focus-visible{
+    outline:2px solid #F65100;
+    outline-offset:1px;
+  }
+  body{
+    padding-bottom:116px !important;
+  }
+  .main,.main-content{
+    padding-bottom:130px !important;
+  }
+  /* Use the fixed shared navigation instead of older top-scrolling navs. */
+  nav.mobile-nav{display:none !important}
+}
+</style>
+
+</head>
+<body><div class="app">
+<aside class="sidebar"><a href="dashboard.html" class="logo">REPSYNC</a><p class="nav-label">WORKSPACE</p><nav class="nav-menu"><a href="dashboard.html" class="nav-item"><span class="nav-icon">⌂</span>Dashboard</a><a href="nutrition.html" class="nav-item"><span class="nav-icon">◉</span>Nutrition</a><a href="workout-logs.html" class="nav-item"><span class="nav-icon">↗</span>Workout Logs</a><a href="muscle-targets.html" class="nav-item"><span class="nav-icon">◎</span>Feed</a>
+<a href="friends.html" class="nav-item"><span class="nav-icon">♧</span>Friends</a>
+</nav><div class="sidebar-bottom"><a href="my-profile.html" class="profile-mini"><div class="avatar" id="sideAvatar">R</div><div class="profile-info"><strong id="sideName">Loading...</strong><span>View profile</span></div></a><button class="logout" id="logoutBtn">↪ Log out</button></div></aside>
+<main class="main"><div class="mobile-head"><a href="dashboard.html" class="logo">REPSYNC</a><button class="logout" id="mobileLogout">Log out ↪</button></div><div class="eyebrow">ATHLETE PROFILE</div><h1 class="heading">My Profile</h1><p class="intro">Your REPSYNC identity and activity status.</p>
+<div class="profile-post-layout"><section class="profile-card"><div class="cover-banner" id="coverBanner" aria-label="Profile cover photo"></div><div class="hero"><div class="portrait" id="portrait">R</div><div><h2 class="name" id="fullName">Loading profile...</h2><p class="username" id="username">@athlete</p><div class="presence" id="presence"><span class="dot"></span><span id="presenceText">Checking status...</span></div></div></div><div class="bio-block"><p class="section-label">About me</p><p class="bio empty" id="bio">No bio added yet.</p></div><div class="meta"><div class="meta-item"><span>Member since</span><strong id="memberSince">—</strong></div><div class="meta-item"><span>Friends</span><strong id="friendCount">0</strong></div><div class="meta-item"><span>🔥 Reactions received</span><strong id="reactionTotal">0</strong></div><div class="meta-item"><span>Account</span><strong>REPSYNC Member</strong></div></div><div class="actions"><a class="btn btn-primary" href="profile.html">Edit profile</a><a class="btn btn-light" href="dashboard.html">Back to dashboard</a></div><p class="notice" id="notice">Active status reflects whether this profile page currently has an active REPSYNC session.</p></section><section class="posts-column"><div class="post-composer"><h2>Create a post</h2><div class="composer-user"><div class="composer-avatar" id="composerAvatar">R</div><div><strong id="composerName">Loading...</strong><small>Share your fitness journey</small></div></div><textarea id="postText" maxlength="2000" placeholder="What are you working on today?"></textarea><div class="composer-preview" id="composerPreview"><img id="postImagePreview" alt="Post image preview"><button class="remove-preview" id="removePostImage" type="button" aria-label="Remove image">×</button></div><div class="composer-actions"><label class="photo-label">＋ Add photo<input type="file" id="postImage" accept="image/jpeg,image/png,image/webp"></label><button class="post-submit" id="publishPost" type="button">Post</button></div><p class="post-hint">JPG, PNG or WEBP · Maximum 5 MB</p><p class="post-status" id="postStatus" aria-live="polite"></p></div><h2 class="posts-heading">Your posts</h2><div id="profilePosts"><div class="posts-empty">Loading posts...</div></div></section></div></main></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="images/js/supabase.js"></script>
+<script>
+(()=>{const client=window.supabaseClient;const $=id=>document.getElementById(id);let user=null,channel=null,friendsChannel=null,postPhotoFile=null,postPhotoPreviewUrl=null;function initials(n){return(n||'R').trim().charAt(0).toUpperCase()||'R'}function setImage(el,url,name){el.innerHTML='';if(url){const img=document.createElement('img');img.src=url;img.alt='Profile picture';el.appendChild(img)}else el.textContent=initials(name)}
+function setComposerIdentity(name,avatarUrl){$('composerName').textContent=name||'Athlete';$('composerAvatar').innerHTML=avatarUrl?`<img src="${avatarUrl}" alt="">`:initials(name)}
+function showPostPreview(file){postPhotoFile=file||null;const preview=$('composerPreview'),img=$('postImagePreview');if(postPhotoPreviewUrl){URL.revokeObjectURL(postPhotoPreviewUrl);postPhotoPreviewUrl=null}if(file){postPhotoPreviewUrl=URL.createObjectURL(file);img.src=postPhotoPreviewUrl;preview.classList.add('show')}else{img.removeAttribute('src');preview.classList.remove('show')}}
+async function loadPosts(){
+ const box=$('profilePosts');
+ const {data:posts,error}=await client.from('profile_posts').select('id,user_id,body,image_url,created_at').eq('user_id',user.id).order('created_at',{ascending:false}).limit(1000);
+ if(error){box.innerHTML=`<div class="posts-empty">Could not load posts: ${escapeHtml(error.message)}. Run profile-posts.sql setup.</div>`;return}
+ if(!posts?.length){$('reactionTotal').textContent='0';box.innerHTML='<div class="posts-empty">No posts yet. Share your first fitness update!</div>';return}
+ const postIds=posts.map(p=>p.id);
+ const [{data:likes,error:likeError},{data:comments,error:commentError}]=await Promise.all([client.from('post_fire_reactions').select('post_id,user_id,created_at').in('post_id',postIds).order('created_at',{ascending:false}),client.from('post_comments').select('id,post_id,user_id,body,created_at').in('post_id',postIds).order('created_at',{ascending:true})]);
+ if(commentError){box.innerHTML=`<div class="posts-empty">Could not load comments: ${escapeHtml(commentError.message)}. Check post engagement SQL.</div>`;return}
+ if(likeError){box.innerHTML=`<div class="posts-empty">Could not load reactions: ${escapeHtml(likeError.message)}. Check post engagement SQL.</div>`;return}
+ const likerIds=[...new Set([...(likes||[]).map(x=>x.user_id),...(comments||[]).map(x=>x.user_id)])];
+ let people=[];
+ if(likerIds.length){const {data,error:peopleError}=await client.from('profiles').select('id,full_name,username,avatar_url').in('id',likerIds);if(peopleError){box.innerHTML=`<div class="posts-empty">Could not load who reacted: ${escapeHtml(peopleError.message)}.</div>`;return}people=data||[]}
+ const peopleById=new Map(people.map(x=>[x.id,x]));
+ const likesByPost=new Map();(likes||[]).forEach(x=>{if(!likesByPost.has(x.post_id))likesByPost.set(x.post_id,[]);likesByPost.get(x.post_id).push(x)});const commentsByPost=new Map();(comments||[]).forEach(x=>{if(!commentsByPost.has(x.post_id))commentsByPost.set(x.post_id,[]);commentsByPost.get(x.post_id).push(x)});
+ const total=(likes||[]).length;$('reactionTotal').textContent=String(total);
+ const safeName=escapeHtml($('composerName').textContent);
+ const avatarUrl=$('composerAvatar').querySelector('img')?.src||'';
+ box.innerHTML=posts.map(p=>{const postLikes=likesByPost.get(p.id)||[];const likerRows=postLikes.map(l=>{const person=peopleById.get(l.user_id)||{full_name:'REPSYNC Member'};const nm=person.full_name||person.username||'REPSYNC Member';const av=person.avatar_url?`<img src="${escapeHtml(person.avatar_url)}" alt="">`:escapeHtml(initials(nm));return `<div class="post-liker"><span class="post-liker-avatar">${av}</span><span>${escapeHtml(nm)}${person.username?` <span style="color:#999">@${escapeHtml(person.username)}</span>`:''}</span></div>`}).join('');return `<article class="post-card" data-post="${p.id}"><div class="post-item-head"><div class="composer-avatar">${avatarUrl?`<img src="${escapeHtml(avatarUrl)}" alt="">`:initials($('composerName').textContent)}</div><div><div class="post-author">${safeName}</div><div class="post-date">${new Date(p.created_at).toLocaleString()}</div></div><button class="post-delete" type="button" data-delete-post="${p.id}">Delete</button></div>${p.body?`<p class="post-body">${escapeHtml(p.body)}</p>`:''}${p.image_url?`<img class="post-image" src="${escapeHtml(p.image_url)}" alt="Post photo" loading="lazy">`:''}<div class="post-engagement"><button class="post-like-summary" type="button" data-likers="${p.id}">🔥 ${postLikes.length} ${postLikes.length===1?'reaction':'reactions'} · See who</button></div><div class="post-likers" id="likers-${p.id}"><div class="post-likers-title">People who reacted</div>${likerRows||'<div class="post-likers-empty">No reactions yet.</div>'}</div><div class="post-comments"><button class="post-comments-toggle" type="button" data-comments-toggle="${p.id}">💬 ${(commentsByPost.get(p.id)||[]).length} comments</button><div class="post-comments-list" id="comments-${p.id}">${(commentsByPost.get(p.id)||[]).map(c=>{const person=peopleById.get(c.user_id)||{full_name:'REPSYNC Member'};const nm=person.full_name||person.username||'REPSYNC Member';return `<div class="post-comment"><span class="post-liker-avatar">${person.avatar_url?`<img src="${escapeHtml(person.avatar_url)}" alt="">`:escapeHtml(initials(nm))}</span><div><strong>${escapeHtml(nm)} <small>${new Date(c.created_at).toLocaleString()}</small></strong>${escapeHtml(c.body)}</div></div>`}).join('')||'<div class="post-likers-empty">No comments yet.</div>'}<form class="post-comment-form" data-profile-comment="${p.id}"><input maxlength="500" placeholder="Write a comment…" required><button type="submit">Send</button></form></div></div></article>`}).join('');
+}
+function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+async function publishPost(){const body=$('postText').value.trim(),file=postPhotoFile,status=$('postStatus'),btn=$('publishPost');if(!body&&!file){status.textContent='Write something or add a photo first.';return}if(file&&file.size>5*1024*1024){status.textContent='Photo must be 5 MB or smaller.';return}btn.disabled=true;btn.textContent='Posting…';status.textContent='';try{let image_url=null;if(file){const ext=file.type==='image/png'?'png':file.type==='image/webp'?'webp':'jpg';const path=`${user.id}/${Date.now()}-${crypto.randomUUID()}.${ext}`;const {error:upErr}=await client.storage.from('community-posts').upload(path,file,{contentType:file.type,upsert:false});if(upErr)throw upErr;const {data}=client.storage.from('community-posts').getPublicUrl(path);image_url=data.publicUrl}const {error}=await client.from('profile_posts').insert({user_id:user.id,body,image_url});if(error)throw error;$('postText').value='';$('postImage').value='';showPostPreview(null);status.textContent='Posted successfully!';await loadPosts()}catch(e){status.textContent=e.message}finally{btn.disabled=false;btn.textContent='Post'}}
+async function deletePost(id){if(!confirm('Delete this post?'))return;const {error}=await client.from('profile_posts').delete().eq('id',id).eq('user_id',user.id);if(error){$('postStatus').textContent=error.message;return}await loadPosts()}
+async function load(){if(!client)throw new Error('Supabase did not initialize. Check images/js/supabase.js.');const {data:{session},error}=await client.auth.getSession();if(error)throw error;if(!session){location.replace('login.html');return}user=session.user;const targetId=new URLSearchParams(location.search).get('id')||user.id;const {data:p,error:pe}=await client.from('profiles').select('full_name,username,bio,avatar_url,cover_url,is_founder').eq('id',targetId).maybeSingle();if(pe)throw pe;const name=p?.full_name||user.user_metadata?.full_name||user.email?.split('@')[0]||'Athlete';$('fullName').textContent=name;if(p?.is_founder){const b=document.createElement('span');b.className='founder-badge';b.textContent='★ FOUNDER';$('fullName').appendChild(b)}$('username').textContent=p?.username?'@'+p.username:'@'+(user.email?.split('@')[0]||'athlete');$('bio').textContent=p?.bio?.trim()||'No bio added yet.';$('bio').classList.toggle('empty',!p?.bio?.trim());$('coverBanner').style.backgroundImage=p?.cover_url?`url(\"${p.cover_url}\")`:'';setImage($('portrait'),p?.avatar_url,name);setImage($('sideAvatar'),p?.avatar_url,name);$('sideName').textContent=name;setComposerIdentity(name,p?.avatar_url);await loadPosts();client.channel('repsync-profile-reactions-'+user.id).on('postgres_changes',{event:'*',schema:'public',table:'post_fire_reactions'},()=>loadPosts()).on('postgres_changes',{event:'*',schema:'public',table:'post_comments'},()=>loadPosts()).subscribe();$('memberSince').textContent=new Date(user.created_at).toLocaleDateString(undefined,{month:'short',year:'numeric'});await loadFriendCount(targetId);startFriendCountUpdates(targetId);startPresence();client.auth.onAuthStateChange((event,s)=>{if(event==='SIGNED_OUT'||!s)location.replace('login.html')})}
+async function loadFriendCount(profileId){const countEl=$('friendCount');if(!countEl)return;if(profileId!==user.id){countEl.textContent='—';return}const {count,error}=await client.from('friend_requests').select('id',{count:'exact',head:true}).eq('status','accepted').or(`sender_id.eq.${user.id},receiver_id.eq.${user.id}`);if(error){console.warn('Could not load friend count:',error.message);countEl.textContent='—';return}countEl.textContent=String(count||0)}
+function startFriendCountUpdates(profileId){if(profileId!==user.id)return;friendsChannel=client.channel('repsync-profile-friend-count-'+user.id).on('postgres_changes',{event:'*',schema:'public',table:'friend_requests'},()=>loadFriendCount(user.id)).subscribe()}
+function startPresence(){try{channel=client.channel('repsync-active-users',{config:{presence:{key:user.id}}});channel.on('presence',{event:'sync'},()=>{const state=channel.presenceState();const active=Object.keys(state).length>0;$('presenceText').textContent=active?'Active now':'Offline';$('presence').style.background=active?'#eaf8ef':'#f1f1f1';$('presence').style.color=active?'#237a43':'#777';$('presence').querySelector('.dot').style.background=active?'#27ae60':'#aaa'});channel.subscribe(async status=>{if(status==='SUBSCRIBED'){await channel.track({user_id:user.id,online_at:new Date().toISOString()})}})}catch(e){console.warn('Presence unavailable',e);$('presenceText').textContent='Status unavailable'}}
+$('postImage').addEventListener('change',e=>{const f=e.target.files?.[0];if(!f)return;if(!['image/jpeg','image/png','image/webp'].includes(f.type)||f.size>5*1024*1024){$('postStatus').textContent='Choose a JPG, PNG or WEBP image under 5 MB.';e.target.value='';return}showPostPreview(f);$('postStatus').textContent=''});$('removePostImage').addEventListener('click',()=>{$('postImage').value='';showPostPreview(null)});$('publishPost').addEventListener('click',publishPost);$('profilePosts').addEventListener('click',e=>{const likeBtn=e.target.closest('[data-likers]');if(likeBtn){$('likers-'+likeBtn.dataset.likers)?.classList.toggle('open');return}const commentBtn=e.target.closest('[data-comments-toggle]');if(commentBtn){$('comments-'+commentBtn.dataset.commentsToggle)?.classList.toggle('open');return}const b=e.target.closest('[data-delete-post]');if(b)deletePost(b.dataset.deletePost)});
+$('profilePosts').addEventListener('submit',async e=>{const form=e.target.closest('[data-profile-comment]');if(!form)return;e.preventDefault();const input=form.querySelector('input'),body=input.value.trim(),btn=form.querySelector('button');if(!body)return;btn.disabled=true;const {error}=await client.from('post_comments').insert({post_id:form.dataset.profileComment,user_id:user.id,body});if(error){alert(error.message);btn.disabled=false;return}await loadPosts();$('comments-'+form.dataset.profileComment)?.classList.add('open')});
+async function logout(){if(channel)await client.removeChannel(channel);if(friendsChannel)await client.removeChannel(friendsChannel);const {error}=await client.auth.signOut();if(error){$('notice').textContent=error.message;return}location.replace('login.html')}$('logoutBtn').addEventListener('click',logout);$('mobileLogout').addEventListener('click',logout);window.addEventListener('pagehide',()=>{if(channel)client.removeChannel(channel);if(friendsChannel)client.removeChannel(friendsChannel)});load().catch(e=>{$('fullName').textContent='Could not load profile';$('notice').textContent=e.message;$('presenceText').textContent='Status unavailable'});
+})();
+</script>
+<script>
+// Display the founder designation from the shared Supabase profile record.
+(async()=>{try{const sb=window.supabaseClient;if(!sb)return;const {data:{session}}=await sb.auth.getSession();if(!session)return;const targetId=new URLSearchParams(location.search).get('id')||session.user.id;const {data:profile,error}=await sb.from('profiles').select('full_name,is_founder').eq('id',targetId).maybeSingle();if(error)throw error;if(!profile?.is_founder)return;const badge=document.createElement('span');badge.className='founder-badge';badge.textContent='★ FOUNDER';badge.setAttribute('aria-label','REPSYNC Founder');const nameEl=document.getElementById('fullName')||document.getElementById('sideName')||document.getElementById('sidebarName');if(nameEl){nameEl.appendChild(badge.cloneNode(true));}for(const id of ['sideName','sidebarName','welcomeName','fullName']){const el=document.getElementById(id);if(el&&el!==nameEl&&!el.querySelector('.founder-badge'))el.appendChild(badge.cloneNode(true));}const role=document.querySelector('.profile-info span');if(role)role.textContent='REPSYNC Founder';}catch(e){console.warn('Founder badge could not be loaded:',e.message)}})();
+</script>
+<nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+<a class="mobile-nav-link" href="dashboard.html"><span class="mobile-nav-icon">⌂</span><span>Dashboard</span></a>
+<a class="mobile-nav-link" href="nutrition.html"><span class="mobile-nav-icon">◉</span><span>Nutrition</span></a>
+<a class="mobile-nav-link" href="workout-logs.html"><span class="mobile-nav-icon">↗</span><span>Workouts</span></a>
+<a class="mobile-nav-link" href="muscle-targets.html"><span class="mobile-nav-icon">◎</span><span>Feed</span></a>
+<a class="mobile-nav-link" href="friends.html"><span class="mobile-nav-icon">♧</span><span>Friends</span></a>
+<a class="mobile-nav-link active" href="my-profile.html" aria-current="page"><span class="mobile-nav-icon">●</span><span>Profile</span></a>
+</nav>
+</body></html>

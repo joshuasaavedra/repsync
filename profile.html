@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REPSYNC – Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#F65100;--black:#151515;--gray:#777;--border:#eee;--light:#fafafa;--brand:'Anton',sans-serif;--display:'Bricolage Grotesque',sans-serif;--body:'Instrument Sans',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--body);background:var(--light);color:var(--black)}button,input,textarea{font:inherit}.app{display:flex;min-height:100vh}.sidebar{width:245px;background:#fff;border-right:1px solid var(--border);padding:30px 22px;display:flex;flex-direction:column;position:fixed;inset:0 auto 0 0}.logo{font:32px var(--brand);letter-spacing:.04em;color:var(--orange);text-decoration:none;margin-bottom:45px}.nav-label{font-size:11px;font-weight:700;color:#aaa;letter-spacing:.12em;margin-bottom:15px}.nav-menu{display:flex;flex-direction:column;gap:8px}.nav-item{display:flex;align-items:center;gap:13px;padding:13px 15px;border-radius:9px;color:#777;font-size:14px;font-weight:600;text-decoration:none}.nav-item:hover,.nav-item.active{background:#FFF1E9;color:var(--orange)}.nav-icon{font-size:18px;width:22px;text-align:center}.sidebar-bottom{margin-top:auto;border-top:1px solid var(--border);padding-top:20px}.profile-mini{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit;cursor:pointer;border-radius:10px;padding:6px;margin:-6px;transition:background .2s}.profile-mini:hover{background:#FFF1E9}.profile-mini:focus-visible{outline:2px solid var(--orange);outline-offset:3px}.avatar{width:40px;height:40px;border-radius:50%;background:#FFF1E9;color:var(--orange);display:grid;place-items:center;font-weight:800;overflow:hidden;flex-shrink:0}.avatar img{width:100%;height:100%;object-fit:cover}.profile-info strong{display:block;font-size:13px}.profile-info span{font-size:11px;color:#999}.logout{border:0;background:none;color:#777;padding:14px 0 0;font-size:13px;font-weight:600;cursor:pointer}.main{margin-left:245px;width:calc(100% - 245px);padding:38px 44px 60px;max-width:1100px}.eyebrow{font-size:11px;letter-spacing:.13em;font-weight:700;color:var(--orange);text-transform:uppercase;margin-bottom:8px}.heading{font:40px var(--display);letter-spacing:-1.5px}.intro{color:var(--gray);font-size:14px;margin-top:5px;margin-bottom:26px}.panel{background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px;max-width:720px}.cover-row{display:flex;flex-direction:column;gap:10px;padding-bottom:22px;border-bottom:1px solid #eee;margin-bottom:22px}.cover-preview{height:150px;width:100%;border-radius:12px;background:linear-gradient(120deg,#222,#555);background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;overflow:hidden}.cover-row .upload{width:max-content}.photo-row{display:flex;align-items:center;gap:18px;padding-bottom:23px;border-bottom:1px solid #eee;margin-bottom:23px}.photo{width:92px;height:92px;border-radius:50%;background:#FFF1E9;color:var(--orange);display:grid;place-items:center;overflow:hidden;font:700 30px var(--display);flex-shrink:0}.photo img{width:100%;height:100%;object-fit:cover}.upload{display:inline-flex;background:#FFF1E9;color:var(--orange);padding:10px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer}.upload input{display:none}.hint{font-size:11px;color:#999;margin-top:8px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:700;color:#555}.field input,.field textarea{width:100%;border:1px solid #e5e5e5;border-radius:9px;padding:12px;font-size:14px;outline:none;background:#fff}.field input:focus,.field textarea:focus{border-color:var(--orange)}.field textarea{resize:vertical;min-height:110px}.field small{font-size:11px;color:#999}.actions{display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-top:5px}.status{margin-right:auto;font-size:12px;color:#777;line-height:1.5}.save{border:0;border-radius:9px;background:var(--orange);color:#fff;padding:12px 18px;font-size:13px;font-weight:700;cursor:pointer}.save:hover{background:#D94300}.save:disabled{opacity:.6;cursor:wait}.message{font-size:13px;color:#a33;margin-bottom:14px}.mobile-head{display:none}
+@media(max-width:650px){.sidebar{display:none}.main{margin:0;width:100%;padding:22px 15px 40px}.mobile-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}.mobile-head .logo{font-size:27px;margin:0}.heading{font-size:32px}.panel{padding:18px}.grid{grid-template-columns:1fr}.photo-row{align-items:flex-start}.actions{flex-wrap:wrap}.status{width:100%;order:2}}
+
+.profile-mini{position:relative;z-index:20;display:flex!important;align-items:center;gap:11px;width:100%;min-height:48px;padding:6px;margin:-6px 0 12px;text-decoration:none!important;color:inherit;cursor:pointer;pointer-events:auto;touch-action:manipulation;border-radius:10px}
+.profile-mini *{pointer-events:none}
+.profile-mini:hover .profile-info strong{color:#F65100}
+.profile-mini:focus-visible{outline:2px solid #F65100;outline-offset:3px}
+
+.founder-badge{display:inline-flex;align-items:center;gap:4px;margin-left:8px;padding:4px 8px;border-radius:999px;background:#FFF1E9;color:#F65100;font:800 10px/1 'Instrument Sans',sans-serif;letter-spacing:.07em;vertical-align:middle;white-space:nowrap;border:1px solid #FFD4BE}
+</style>
+<style id="repsync-mobile-navigation">
+/* Shared REPSYNC mobile bottom navigation */
+.mobile-bottom-nav{
+  display:none;
+}
+@media (max-width:650px){
+  .mobile-bottom-nav{
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    grid-template-rows:repeat(2,1fr);
+    position:fixed;
+    left:0;right:0;bottom:0;
+    z-index:9999;
+    min-height:104px;
+    padding:8px 8px calc(8px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.98);
+    border-top:1px solid #e9e9e9;
+    box-shadow:0 -5px 22px rgba(0,0,0,.08);
+    gap:4px;
+    backdrop-filter:blur(12px);
+  }
+  .mobile-bottom-nav .mobile-nav-link{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    min-width:0;
+    min-height:42px;
+    padding:4px 2px;
+    border-radius:9px;
+    color:#858585;
+    text-decoration:none;
+    font-family:'Instrument Sans',sans-serif;
+    font-size:10px;
+    line-height:1.15;
+    font-weight:700;
+    text-align:center;
+    white-space:nowrap;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .mobile-bottom-nav .mobile-nav-icon{
+    display:block;
+    font-size:19px;
+    line-height:1;
+  }
+  .mobile-bottom-nav .mobile-nav-link.active{
+    color:#F65100;
+    background:#FFF1E9;
+  }
+  .mobile-bottom-nav .mobile-nav-link:focus-visible{
+    outline:2px solid #F65100;
+    outline-offset:1px;
+  }
+  body{
+    padding-bottom:116px !important;
+  }
+  .main,.main-content{
+    padding-bottom:130px !important;
+  }
+  /* Use the fixed shared navigation instead of older top-scrolling navs. */
+  nav.mobile-nav{display:none !important}
+}
+</style>
+
+</head>
+<body><div class="app">
+<aside class="sidebar"><a href="dashboard.html" class="logo">REPSYNC</a><p class="nav-label">WORKSPACE</p><nav class="nav-menu"><a href="dashboard.html" class="nav-item"><span class="nav-icon">⌂</span>Dashboard</a><a href="nutrition.html" class="nav-item"><span class="nav-icon">◉</span>Nutrition</a><a href="workout-logs.html" class="nav-item"><span class="nav-icon">↗</span>Workout Logs</a><a href="muscle-targets.html" class="nav-item"><span class="nav-icon">◎</span>Feed</a>
+<a href="friends.html" class="nav-item"><span class="nav-icon">♧</span>Friends</a>
+</nav><div class="sidebar-bottom"><a href="my-profile.html" class="profile-mini" aria-label="Open profile settings" ><div class="avatar" id="sideAvatar">R</div><div class="profile-info"><strong id="sideName">Loading...</strong><span>View profile</span></div></a><button class="logout" id="logoutBtn">↪ Log out</button></div></aside>
+<main class="main"><div class="mobile-head"><a href="dashboard.html" class="logo">REPSYNC</a><button class="logout" id="mobileLogout">Log out ↪</button></div><div class="eyebrow">YOUR ACCOUNT</div><h1 class="heading">Profile</h1><p class="intro">Make your REPSYNC profile yours.</p><div class="message" id="pageMessage"></div>
+<section class="panel"><form id="profileForm"><div class="cover-row"><label><strong>Profile cover photo</strong></label><div class="cover-preview" id="coverPreview">Your cover photo preview</div><label class="upload">Upload cover photo<input id="coverInput" type="file" accept="image/png,image/jpeg,image/webp"></label><p class="hint">JPG, PNG or WEBP · Maximum 5 MB</p></div><div class="photo-row"><div class="photo" id="photoPreview">R</div><div><label class="upload">Upload profile picture<input id="photoInput" type="file" accept="image/png,image/jpeg,image/webp"></label><p class="hint">JPG, PNG or WEBP · Maximum 5 MB</p></div></div>
+<div class="grid"><div class="field"><label for="fullName">Full name</label><input id="fullName" maxlength="80" placeholder="Your name"></div><div class="field"><label for="username">Username</label><input id="username" maxlength="30" placeholder="e.g. mardzfit"><small>3–30 characters; letters, numbers and underscores.</small></div><div class="field full"><label for="bio">Bio</label><textarea id="bio" maxlength="250" placeholder="Tell us a little about your fitness journey..."></textarea><small>Up to 250 characters.</small></div><div class="field full"><label for="email">Email address</label><input id="email" type="email" disabled readonly></div></div>
+<div class="actions"><p class="status" id="status" aria-live="polite"></p><button class="save" id="saveBtn" type="submit">Save changes</button></div></form></section></main></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="images/js/supabase.js"></script>
+<script>
+(()=>{const client=window.supabaseClient;const $=id=>document.getElementById(id);let user=null,avatarUrl='',photoFile=null,coverUrl='',coverFile=null;
+function initials(name){return (name||'R').trim().charAt(0).toUpperCase()||'R'}
+function setPhoto(el,url,name){el.innerHTML='';if(url){const im=document.createElement('img');im.src=url;im.alt='Profile picture';el.appendChild(im)}else el.textContent=initials(name)}
+function setCover(url){const el=$('coverPreview');el.style.backgroundImage=url?`url(\"${url}\")`:'';el.textContent=url?'':'Your cover photo preview'}
+function displayName(name){$('sideName').textContent=name||user?.email?.split('@')[0]||'Athlete';setPhoto($('sideAvatar'),avatarUrl,name)}
+async function load(){if(!client)throw new Error('Supabase did not initialize. Check images/js/supabase.js.');const {data:{session},error}=await client.auth.getSession();if(error)throw error;if(!session){location.replace('login.html');return}user=session.user;$('email').value=user.email||'';const {data,error:profileError}=await client.from('profiles').select('full_name,username,bio,avatar_url,cover_url').eq('id',user.id).maybeSingle();if(profileError)throw profileError;const p=data||{};$('fullName').value=p.full_name||user.user_metadata?.full_name||user.email?.split('@')[0]||'';$('username').value=p.username||'';$('bio').value=p.bio||'';avatarUrl=p.avatar_url||'';coverUrl=p.cover_url||'';setCover(coverUrl);setPhoto($('photoPreview'),avatarUrl,$('fullName').value);displayName($('fullName').value);client.auth.onAuthStateChange((event,s)=>{if(event==='SIGNED_OUT'||!s)location.replace('login.html')})}
+$('fullName').addEventListener('input',()=>setPhoto($('photoPreview'),photoFile?$('photoPreview').querySelector('img')?.src:avatarUrl,$('fullName').value));
+$('coverInput').addEventListener('change',e=>{const f=e.target.files?.[0];if(!f)return;if(!['image/jpeg','image/png','image/webp'].includes(f.type)||f.size>5*1024*1024){$('status').textContent='Choose a JPG, PNG or WEBP cover image under 5 MB.';e.target.value='';return}coverFile=f;const reader=new FileReader();reader.onload=()=>setCover(reader.result);reader.readAsDataURL(f)});
+$('photoInput').addEventListener('change',e=>{const f=e.target.files?.[0];if(!f)return;if(!['image/jpeg','image/png','image/webp'].includes(f.type)||f.size>5*1024*1024){$('status').textContent='Choose a JPG, PNG or WEBP image under 5 MB.';e.target.value='';return}photoFile=f;const r=new FileReader();r.onload=()=>setPhoto($('photoPreview'),r.result,$('fullName').value);r.readAsDataURL(f)});
+$('profileForm').addEventListener('submit',async e=>{e.preventDefault();const fullName=$('fullName').value.trim(),username=$('username').value.trim().toLowerCase(),bio=$('bio').value.trim();if(username&&!/^[a-z0-9_]{3,30}$/.test(username)){$('status').textContent='Username must be 3–30 characters using letters, numbers or underscores.';return}const btn=$('saveBtn');btn.disabled=true;btn.textContent='Saving...';$('status').textContent='Saving your profile...';try{let url=avatarUrl,cover=coverUrl;if(coverFile){const ext=coverFile.name.split('.').pop().toLowerCase(),path=`${user.id}/cover-${Date.now()}.${ext}`;const {error}=await client.storage.from('profile-photos').upload(path,coverFile,{upsert:true,contentType:coverFile.type});if(error)throw error;cover=client.storage.from('profile-photos').getPublicUrl(path).data.publicUrl}if(photoFile){const ext=photoFile.name.split('.').pop().toLowerCase(),path=`${user.id}/avatar-${Date.now()}.${ext}`;const {error}=await client.storage.from('profile-photos').upload(path,photoFile,{upsert:true,contentType:photoFile.type});if(error)throw error;url=client.storage.from('profile-photos').getPublicUrl(path).data.publicUrl}const {error}=await client.from('profiles').upsert({id:user.id,full_name:fullName,username:username||null,bio,avatar_url:url||null,cover_url:cover||null,updated_at:new Date().toISOString()},{onConflict:'id'});if(error)throw error;avatarUrl=url;coverUrl=cover;coverFile=null;displayName(fullName);setPhoto($('photoPreview'),avatarUrl,fullName);photoFile=null;$('status').textContent='Your profile has been saved. Redirecting to your profile...';setTimeout(()=>{location.href='my-profile.html'},700)}catch(err){console.error(err);$('status').textContent='Could not save profile: '+err.message}finally{btn.disabled=false;btn.textContent='Save changes'}});
+async function logout(){const {error}=await client.auth.signOut();if(error){$('status').textContent=error.message;return}location.replace('login.html')}$('logoutBtn').addEventListener('click',logout);$('mobileLogout').addEventListener('click',logout);load().catch(err=>{$('pageMessage').textContent=err.message});})();
+</script>
+<script>
+// Keep REPSYNC online presence active across all authenticated app pages.
+(()=>{const sb=window.supabaseClient;if(!sb)return;let presenceChannel=null;sb.auth.getSession().then(({data,error})=>{if(error||!data.session)return;const uid=data.session.user.id;presenceChannel=sb.channel('repsync-active-users',{config:{presence:{key:uid}}});presenceChannel.subscribe(async status=>{if(status==='SUBSCRIBED'){try{await presenceChannel.track({user_id:uid,online_at:new Date().toISOString()})}catch(e){console.warn('Could not update REPSYNC presence',e)}}});window.addEventListener('pagehide',()=>{if(presenceChannel)sb.removeChannel(presenceChannel)},{once:true})}).catch(e=>console.warn('REPSYNC presence unavailable',e));})();
+</script>
+
+<script>
+// Display the founder designation from the shared Supabase profile record.
+(async()=>{try{const sb=window.supabaseClient;if(!sb)return;const {data:{session}}=await sb.auth.getSession();if(!session)return;const targetId=new URLSearchParams(location.search).get('id')||session.user.id;const {data:profile,error}=await sb.from('profiles').select('full_name,is_founder').eq('id',targetId).maybeSingle();if(error)throw error;if(!profile?.is_founder)return;const badge=document.createElement('span');badge.className='founder-badge';badge.textContent='★ FOUNDER';badge.setAttribute('aria-label','REPSYNC Founder');const nameEl=document.getElementById('fullName')||document.getElementById('sideName')||document.getElementById('sidebarName');if(nameEl){nameEl.appendChild(badge.cloneNode(true));}for(const id of ['sideName','sidebarName','welcomeName','fullName']){const el=document.getElementById(id);if(el&&el!==nameEl&&!el.querySelector('.founder-badge'))el.appendChild(badge.cloneNode(true));}const role=document.querySelector('.profile-info span');if(role)role.textContent='REPSYNC Founder';}catch(e){console.warn('Founder badge could not be loaded:',e.message)}})();
+</script>
+<nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+<a class="mobile-nav-link" href="dashboard.html"><span class="mobile-nav-icon">⌂</span><span>Dashboard</span></a>
+<a class="mobile-nav-link" href="nutrition.html"><span class="mobile-nav-icon">◉</span><span>Nutrition</span></a>
+<a class="mobile-nav-link" href="workout-logs.html"><span class="mobile-nav-icon">↗</span><span>Workouts</span></a>
+<a class="mobile-nav-link" href="muscle-targets.html"><span class="mobile-nav-icon">◎</span><span>Feed</span></a>
+<a class="mobile-nav-link" href="friends.html"><span class="mobile-nav-icon">♧</span><span>Friends</span></a>
+<a class="mobile-nav-link active" href="my-profile.html" aria-current="page"><span class="mobile-nav-icon">●</span><span>Profile</span></a>
+</nav>
+</body></html>

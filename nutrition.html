@@ -1,0 +1,1835 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REPSYNC – Nutrition</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --orange: #F65100;
+    --orange-hover: #D94300;
+    --black: #151515;
+    --gray: #777;
+    --border: #eee;
+    --light: #fafafa;
+    --white: #fff;
+    --brand: 'Anton', sans-serif;
+    --display: 'Bricolage Grotesque', sans-serif;
+    --body: 'Instrument Sans', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--body);
+    background: var(--light);
+    color: var(--black);
+}
+
+button, input, select {
+    font-family: var(--body);
+}
+
+button { cursor: pointer; }
+
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 245px;
+    background: white;
+    border-right: 1px solid var(--border);
+    padding: 30px 22px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    z-index: 10;
+}
+
+.logo {
+    font-family: var(--brand);
+    font-size: 32px;
+    letter-spacing: .04em;
+    color: var(--orange);
+    text-decoration: none;
+    margin-bottom: 45px;
+}
+
+.nav-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #aaa;
+    letter-spacing: .12em;
+    margin-bottom: 15px;
+}
+
+.nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 13px 15px;
+    border-radius: 9px;
+    color: #777;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: #FFF1E9;
+    color: var(--orange);
+}
+
+.nav-icon {
+    font-size: 18px;
+    width: 22px;
+    text-align: center;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+}
+
+.profile-mini {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 18px;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #FFF1E9;
+    color: var(--orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.profile-info strong {
+    display: block;
+    font-size: 13px;
+}
+
+.profile-info span {
+    font-size: 11px;
+    color: var(--gray);
+}
+
+.logout-btn {
+    border: none;
+    background: transparent;
+    color: var(--gray);
+    font-size: 13px;
+    padding: 10px 0;
+}
+
+.logout-btn:hover { color: var(--orange); }
+
+/* MAIN */
+.main-content {
+    margin-left: 245px;
+    width: calc(100% - 245px);
+    padding: 35px 45px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.topbar h1 {
+    font-family: var(--display);
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.topbar p {
+    color: var(--gray);
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.date-label {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--gray);
+}
+
+/* INTRO */
+.intro {
+    background: var(--orange);
+    color: white;
+    padding: 28px 32px;
+    border-radius: 14px;
+    margin-bottom: 28px;
+}
+
+.intro h2 {
+    font-family: var(--display);
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+.intro p {
+    font-size: 13px;
+    opacity: .9;
+    line-height: 1.6;
+}
+
+/* GENERAL CARD */
+.card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.card-heading { margin-bottom: 22px; }
+
+.card-heading h2 {
+    font-family: var(--display);
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.card-heading p {
+    color: var(--gray);
+    font-size: 13px;
+    margin-top: 5px;
+    line-height: 1.5;
+}
+
+/* FORM */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 19px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    color: var(--black);
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--orange);
+}
+
+.field-hint {
+    font-size: 11px;
+    color: var(--gray);
+}
+
+.primary-btn {
+    background: var(--orange);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 22px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: .2s;
+}
+
+.primary-btn:hover { background: var(--orange-hover); }
+
+.secondary-btn {
+    background: white;
+    border: 1px solid var(--border);
+    color: var(--black);
+    border-radius: 8px;
+    padding: 11px 15px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.secondary-btn:hover {
+    border-color: var(--orange);
+    color: var(--orange);
+}
+
+.form-actions {
+    margin-top: 22px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* PROFILE SUMMARY */
+.profile-summary {
+    background: #FFF7F2;
+    border: 1px solid #FFE1D1;
+    border-radius: 11px;
+    padding: 18px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.profile-summary h3 {
+    font-family: var(--display);
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.profile-summary p {
+    color: var(--gray);
+    font-size: 12px;
+}
+
+/* GOAL SELECTOR */
+.goal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 25px;
+}
+
+.goal-option {
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    padding: 20px 15px;
+    text-align: left;
+    background: white;
+    transition: .2s;
+    color: var(--black);
+}
+
+.goal-option:hover { border-color: var(--orange); }
+
+.goal-option.active {
+    border: 2px solid var(--orange);
+    background: #FFF7F2;
+}
+
+.goal-option .goal-icon {
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+
+.goal-option strong {
+    display: block;
+    font-family: var(--display);
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.goal-option span {
+    color: var(--gray);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+/* RESULTS */
+.result-hero {
+    background: #151515;
+    color: white;
+    padding: 27px;
+    border-radius: 13px;
+    margin-bottom: 20px;
+}
+
+.result-hero .eyebrow {
+    color: #bbb;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.result-hero h2 {
+    font-family: var(--display);
+    font-size: 40px;
+    margin: 8px 0;
+}
+
+.result-hero h2 span {
+    font-size: 15px;
+    font-weight: 500;
+    color: #bbb;
+}
+
+.result-hero p {
+    color: #bbb;
+    font-size: 12px;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.macro-card {
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    padding: 20px;
+    background: white;
+}
+
+.macro-card .macro-name {
+    font-size: 12px;
+    color: var(--gray);
+    margin-bottom: 12px;
+}
+
+.macro-card h3 {
+    font-family: var(--display);
+    font-size: 27px;
+}
+
+.macro-card h3 span {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gray);
+}
+
+.macro-card p {
+    font-size: 11px;
+    color: var(--gray);
+    margin-top: 8px;
+}
+
+.macro-bar {
+    height: 7px;
+    background: #eee;
+    border-radius: 20px;
+    margin-top: 15px;
+    overflow: hidden;
+}
+
+.macro-bar div {
+    height: 100%;
+    background: var(--orange);
+    border-radius: 20px;
+}
+
+/* TDEE DETAILS */
+.tdee-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.tdee-item {
+    padding: 18px;
+    background: #fafafa;
+    border-radius: 10px;
+}
+
+.tdee-item span {
+    display: block;
+    font-size: 11px;
+    color: var(--gray);
+    margin-bottom: 7px;
+}
+
+.tdee-item strong {
+    font-family: var(--display);
+    font-size: 22px;
+}
+
+/* DISCLAIMER */
+.disclaimer {
+    font-size: 11px;
+    line-height: 1.6;
+    color: var(--gray);
+    margin-top: 20px;
+}
+
+/* FOOD LOG */
+.food-form { margin-top: 8px; }
+
+.food-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.food-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.food-entry:last-child { border-bottom: 0; }
+
+.food-entry-name {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.food-entry-meal {
+    color: var(--orange);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.food-entry-macros {
+    color: var(--gray);
+    font-size: 11px;
+    margin-top: 6px;
+    line-height: 1.5;
+}
+
+.delete-food-btn {
+    border: 0;
+    background: transparent;
+    color: #D94300;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 8px;
+    flex-shrink: 0;
+}
+
+.delete-food-btn:hover { text-decoration: underline; }
+
+.food-empty {
+    color: var(--gray);
+    font-size: 13px;
+    padding: 15px 0;
+}
+
+.food-totals { margin: 22px 0 28px; }
+
+@media(max-width: 600px) {
+    .food-entry { align-items: flex-start; }
+}
+
+/* MESSAGES */
+.message {
+    display: none;
+    padding: 13px 15px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+.message.error {
+    display: block;
+    background: #FFF0F0;
+    color: #C62828;
+}
+
+.message.success {
+    display: block;
+    background: #EFFAF1;
+    color: #238636;
+}
+
+.hidden { display: none !important; }
+
+footer {
+    text-align: center;
+    padding: 25px 0;
+    color: var(--gray);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 25px;
+}
+
+/* MOBILE */
+.mobile-header { display: none; }
+
+@media(max-width: 1000px) {
+    .main-content { padding: 30px 25px; }
+}
+
+@media(max-width: 800px) {
+    .sidebar { width: 200px; }
+
+    .main-content {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
+
+    .result-grid { grid-template-columns: 1fr; }
+}
+
+@media(max-width: 600px) {
+    .sidebar { display: none; }
+
+    .main-content {
+        margin: 0;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .mobile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .mobile-header .logo {
+        margin: 0;
+        font-size: 27px;
+    }
+
+    .topbar h1 { font-size: 25px; }
+    .date-label { display: none; }
+    .intro { padding: 23px; }
+    .intro h2 { font-size: 22px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .goal-grid { grid-template-columns: 1fr; }
+    .tdee-grid { grid-template-columns: 1fr; }
+    .result-hero h2 { font-size: 34px; }
+    .card { padding: 19px; }
+}
+
+ .profile-mini{ text-decoration:none;color:inherit;cursor:pointer;width:100%;}
+.profile-mini:hover .profile-info strong{color:#F65100;}
+
+.profile-mini{position:relative;z-index:20;display:flex!important;align-items:center;gap:11px;width:100%;min-height:48px;padding:6px;margin:-6px 0 12px;text-decoration:none!important;color:inherit;cursor:pointer;pointer-events:auto;touch-action:manipulation;border-radius:10px}
+.profile-mini *{pointer-events:none}
+.profile-mini:hover .profile-info strong{color:#F65100}
+.profile-mini:focus-visible{outline:2px solid #F65100;outline-offset:3px}
+
+.founder-badge{display:inline-flex;align-items:center;gap:4px;margin-left:8px;padding:4px 8px;border-radius:999px;background:#FFF1E9;color:#F65100;font:800 10px/1 'Instrument Sans',sans-serif;letter-spacing:.07em;vertical-align:middle;white-space:nowrap;border:1px solid #FFD4BE}
+</style>
+
+<style id="repsync-mobile-navigation">
+/* Shared REPSYNC mobile bottom navigation */
+.mobile-bottom-nav{
+  display:none;
+}
+@media (max-width:650px){
+  .mobile-bottom-nav{
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    grid-template-rows:repeat(2,1fr);
+    position:fixed;
+    left:0;right:0;bottom:0;
+    z-index:9999;
+    min-height:104px;
+    padding:8px 8px calc(8px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.98);
+    border-top:1px solid #e9e9e9;
+    box-shadow:0 -5px 22px rgba(0,0,0,.08);
+    gap:4px;
+    backdrop-filter:blur(12px);
+  }
+  .mobile-bottom-nav .mobile-nav-link{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    min-width:0;
+    min-height:42px;
+    padding:4px 2px;
+    border-radius:9px;
+    color:#858585;
+    text-decoration:none;
+    font-family:'Instrument Sans',sans-serif;
+    font-size:10px;
+    line-height:1.15;
+    font-weight:700;
+    text-align:center;
+    white-space:nowrap;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .mobile-bottom-nav .mobile-nav-icon{
+    display:block;
+    font-size:19px;
+    line-height:1;
+  }
+  .mobile-bottom-nav .mobile-nav-link.active{
+    color:#F65100;
+    background:#FFF1E9;
+  }
+  .mobile-bottom-nav .mobile-nav-link:focus-visible{
+    outline:2px solid #F65100;
+    outline-offset:1px;
+  }
+  body{
+    padding-bottom:116px !important;
+  }
+  .main,.main-content{
+    padding-bottom:130px !important;
+  }
+  /* Use the fixed shared navigation instead of older top-scrolling navs. */
+  nav.mobile-nav{display:none !important}
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <a href="dashboard.html" class="logo">REPSYNC</a>
+
+        <p class="nav-label">WORKSPACE</p>
+
+        <nav class="nav-menu">
+
+            <a href="dashboard.html" class="nav-item">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="nutrition.html" class="nav-item active">
+                <span class="nav-icon">◉</span>
+                Nutrition
+            </a>
+
+            <a href="workout-logs.html" class="nav-item">
+                <span class="nav-icon">↗</span>
+                Workout Logs
+            </a>
+
+            <a href="muscle-targets.html" class="nav-item">
+                <span class="nav-icon">◎</span>
+                Feed
+            </a>
+
+        
+<a href="friends.html" class="nav-item"><span class="nav-icon">♧</span>Friends</a>
+</nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="my-profile.html" class="profile-mini" aria-label="Open profile" >
+                <div class="avatar" id="userAvatar">R</div>
+                <div class="profile-info">
+                    <strong id="sidebarName">Loading...</strong>
+                    <span>View profile</span>
+                </div>
+            </a>
+
+            <button class="logout-btn" id="logoutBtn">
+                ↪ Log out
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+        <div class="mobile-header">
+            <a href="dashboard.html" class="logo">REPSYNC</a>
+            <button class="logout-btn" id="mobileLogout">Log out ↪</button>
+        </div>
+
+        <div class="topbar">
+            <div>
+                <h1>Nutrition</h1>
+                <p>Understand your body. Set your daily nutrition goals.</p>
+            </div>
+
+            <div class="date-label" id="todayDate"></div>
+        </div>
+
+        <section class="intro">
+            <h2>Fuel your progress.</h2>
+            <p>
+                Calculate your daily calorie needs and personalized
+                macronutrient targets based on your body and fitness goals.
+            </p>
+        </section>
+
+        <div id="message" class="message"></div>
+
+        <!-- FIRST TIME SETUP / EDIT PROFILE -->
+        <section class="card" id="profileSection">
+
+            <div class="card-heading">
+                <h2 id="formTitle">Let's get to know your body.</h2>
+
+                <p id="formDescription">
+                    Enter your details to calculate your estimated
+                    daily calorie and macro requirements.
+                </p>
+            </div>
+
+            <form id="profileForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" min="18" max="100"
+                            placeholder="e.g. 22" required>
+                        <span class="field-hint">Age in years. This calculator is for adults 18+.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gender">Gender / Sex for calculation</label>
+                        <select id="gender" required>
+                            <option value="">Select option</option>
+                            <option value="female">Female</option>
+                            <option value="male">Male</option>
+                        </select>
+                        <span class="field-hint">Used by the calorie estimation formula.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="height">Height (cm)</label>
+                        <input type="number" id="height" min="100" max="250"
+                            step="0.1" placeholder="e.g. 162.5" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="weight">Current Weight (kg)</label>
+                        <input type="number" id="weight" min="30" max="300"
+                            step="0.1" placeholder="e.g. 54" required>
+                    </div>
+
+                    <div class="form-group" style="grid-column:1/-1">
+                        <label for="activity">Activity Level</label>
+                        <select id="activity" required>
+                            <option value="">Choose your activity level</option>
+                            <option value="1.2">Sedentary – Little or no exercise</option>
+                            <option value="1.375">Lightly Active – Exercise 1–3 days/week</option>
+                            <option value="1.55">Moderately Active – Exercise 3–5 days/week</option>
+                            <option value="1.725">Very Active – Exercise 6–7 days/week</option>
+                            <option value="1.9">Extra Active – Intense training or physical job</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="primary-btn" id="saveProfileBtn">
+                        Calculate My Nutrition Goals
+                    </button>
+
+                    <button type="button" class="secondary-btn hidden" id="cancelEditBtn">
+                        Cancel
+                    </button>
+                </div>
+
+            </form>
+        </section>
+
+        <!-- NUTRITION RESULTS -->
+        <section id="resultsSection" class="hidden">
+
+            <!-- PROFILE SUMMARY -->
+            <div class="profile-summary">
+                <div>
+                    <h3>Your Body Profile</h3>
+                    <p id="profileSummaryText"></p>
+                </div>
+
+                <button class="secondary-btn" id="editProfileBtn">
+                    Edit Body Stats
+                </button>
+            </div>
+
+            <!-- GOAL SELECTOR -->
+            <section class="card">
+                <div class="card-heading">
+                    <h2>Choose Your Fitness Goal</h2>
+                    <p>Select a goal to adjust your daily calorie and macro targets.</p>
+                </div>
+
+                <div class="goal-grid">
+
+                    <button class="goal-option" data-goal="maintenance">
+                        <div class="goal-icon">⚖️</div>
+                        <strong>Maintenance</strong>
+                        <span>Maintain your current weight and support your activity.</span>
+                    </button>
+
+                    <button class="goal-option" data-goal="cutting">
+                        <div class="goal-icon">🔥</div>
+                        <strong>Cutting</strong>
+                        <span>A moderate calorie deficit to support gradual fat loss.</span>
+                    </button>
+
+                    <button class="goal-option" data-goal="bulking">
+                        <div class="goal-icon">💪</div>
+                        <strong>Bulking</strong>
+                        <span>A moderate calorie surplus to support muscle growth.</span>
+                    </button>
+
+                </div>
+
+                <!-- CALORIE RESULT -->
+                <div class="result-hero">
+                    <div class="eyebrow" id="goalResultLabel">
+                        YOUR DAILY CALORIE TARGET
+                    </div>
+
+                    <h2>
+                        <span id="calorieResult">0</span>
+                        <span>kcal / day</span>
+                    </h2>
+
+                    <p id="goalDescription">Your estimated daily calorie target.</p>
+                </div>
+
+                <!-- MACROS -->
+                <div class="card-heading">
+                    <h2>Your Daily Macros</h2>
+                    <p>Your recommended daily macronutrient targets in grams.</p>
+                </div>
+
+                <div class="result-grid">
+
+                    <div class="macro-card">
+                        <div class="macro-name">PROTEIN</div>
+                        <h3><span id="proteinResult">0</span> <span>g</span></h3>
+                        <p id="proteinCalories">0 kcal</p>
+                        <div class="macro-bar"><div id="proteinBar" style="width:0%"></div></div>
+                    </div>
+
+                    <div class="macro-card">
+                        <div class="macro-name">CARBOHYDRATES</div>
+                        <h3><span id="carbsResult">0</span> <span>g</span></h3>
+                        <p id="carbsCalories">0 kcal</p>
+                        <div class="macro-bar"><div id="carbsBar" style="width:0%"></div></div>
+                    </div>
+
+                    <div class="macro-card">
+                        <div class="macro-name">FATS</div>
+                        <h3><span id="fatResult">0</span> <span>g</span></h3>
+                        <p id="fatCalories">0 kcal</p>
+                        <div class="macro-bar"><div id="fatBar" style="width:0%"></div></div>
+                    </div>
+
+                </div>
+
+                <!-- TDEE INFORMATION -->
+                <div class="card-heading" style="margin-top:30px">
+                    <h2>Calorie Calculation</h2>
+                    <p>Understand where your daily target comes from.</p>
+                </div>
+
+                <div class="tdee-grid">
+                    <div class="tdee-item">
+                        <span>Basal Metabolic Rate (BMR)</span>
+                        <strong id="bmrResult">0 kcal</strong>
+                    </div>
+
+                    <div class="tdee-item">
+                        <span>Total Daily Energy Expenditure (TDEE)</span>
+                        <strong id="tdeeResult">0 kcal</strong>
+                    </div>
+                </div>
+
+                <p class="disclaimer">
+                    These are estimates based on the Mifflin-St Jeor equation
+                    and your selected activity level. Actual calorie needs can
+                    vary. Macro targets are starting estimates, not medical
+                    or dietetic advice. Adjust based on your progress and
+                    consult a registered dietitian or healthcare professional
+                    for individualized guidance.
+                </p>
+            </section>
+
+            <!-- FOOD LOG -->
+            <section class="card" id="foodLogSection">
+
+                <div class="card-heading">
+                    <h2>Today's Food Log</h2>
+                    <p>Save the foods you eat and track your daily nutrition.</p>
+                </div>
+
+                <!-- MANUAL FOOD ENTRY -->
+                <form id="foodForm" class="food-form">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="foodName">Food Name</label>
+                            <input
+                                type="text"
+                                id="foodName"
+                                placeholder="e.g. Chicken breast"
+                                maxlength="120"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mealType">Meal Type</label>
+                            <select id="mealType" required>
+                                <option value="Breakfast">Breakfast</option>
+                                <option value="Lunch">Lunch</option>
+                                <option value="Dinner">Dinner</option>
+                                <option value="Snack">Snack</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="foodCalories">Calories (kcal)</label>
+                            <input type="number" id="foodCalories" min="0" max="10000" step="0.1" placeholder="e.g. 250" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="foodProtein">Protein (g)</label>
+                            <input type="number" id="foodProtein" min="0" max="1000" step="0.1" placeholder="e.g. 30" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="foodCarbs">Carbohydrates (g)</label>
+                            <input type="number" id="foodCarbs" min="0" max="1000" step="0.1" placeholder="e.g. 35" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="foodFat">Fats (g)</label>
+                            <input type="number" id="foodFat" min="0" max="1000" step="0.1" placeholder="e.g. 8" required>
+                        </div>
+
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="primary-btn" id="saveFoodBtn">
+                            + Save Food
+                        </button>
+                    </div>
+
+                </form>
+
+                <div id="foodMessage" class="message" aria-live="polite"></div>
+
+                <div class="card-heading" style="margin-top:30px;">
+                    <h2>Today's Consumption</h2>
+                    <p>Totals from your successfully saved food entries.</p>
+                </div>
+
+                <div class="tdee-grid food-totals">
+
+                    <div class="tdee-item">
+                        <span>Total Calories</span>
+                        <strong id="loggedCalories">0 kcal</strong>
+                    </div>
+
+                    <div class="tdee-item">
+                        <span>Total Protein</span>
+                        <strong id="loggedProtein">0 g</strong>
+                    </div>
+
+                    <div class="tdee-item">
+                        <span>Total Carbohydrates</span>
+                        <strong id="loggedCarbs">0 g</strong>
+                    </div>
+
+                    <div class="tdee-item">
+                        <span>Total Fats</span>
+                        <strong id="loggedFat">0 g</strong>
+                    </div>
+
+                </div>
+
+                <div class="card-heading">
+                    <h2>Logged Foods</h2>
+                    <p>Only foods logged for today are shown here.</p>
+                </div>
+
+                <div id="foodList" class="food-list">
+                    <p class="food-empty">No foods logged yet.</p>
+                </div>
+
+            </section>
+
+        </section>
+
+        <footer>
+            © 2026 REPSYNC. Built for consistency.
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="images/js/supabase.js"></script>
+
+<script>
+(() => {
+
+    // Use the shared REPSYNC Supabase client.
+    const supabaseClient = window.supabaseClient;
+    if (!supabaseClient) {
+        throw new Error('Supabase did not initialize. Check images/js/supabase.js and the Supabase CDN script.');
+    }
+
+    let currentUser = null;
+    let currentProfile = null;
+    let currentGoal = 'maintenance';
+    let isEditing = false;
+
+    const profileSection =
+        document.getElementById('profileSection');
+
+    const resultsSection =
+        document.getElementById('resultsSection');
+
+    const profileForm =
+        document.getElementById('profileForm');
+
+    const message =
+        document.getElementById('message');
+
+    // DATE
+
+    document.getElementById('todayDate').textContent =
+        new Date().toLocaleDateString('en-US', {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric'
+        });
+
+    // MESSAGES
+
+    function showMessage(text, type = 'error') {
+        message.textContent = text;
+        message.className = 'message ' + type;
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    function clearMessage() {
+        message.textContent = '';
+        message.className = 'message';
+    }
+
+    // USER INFORMATION
+
+    function displayUser(user) {
+
+        const name =
+            user.user_metadata?.full_name ||
+            user.email?.split('@')[0] ||
+            'Athlete';
+
+        document.getElementById('sidebarName').textContent = name;
+        const avatar = document.getElementById('userAvatar');
+        avatar.textContent = name.charAt(0).toUpperCase();
+        supabaseClient.from('profiles').select('full_name,avatar_url').eq('id', user.id).maybeSingle()
+          .then(({data, error}) => {
+            if (error) { console.warn('Profile photo unavailable:', error.message); return; }
+            if (data?.full_name) document.getElementById('sidebarName').textContent = data.full_name;
+            if (data?.avatar_url) { avatar.innerHTML = ''; const img = document.createElement('img'); img.src = data.avatar_url; img.alt = 'Profile picture'; img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%'; avatar.appendChild(img); }
+          });
+    }
+
+    // GET PROFILE FROM SUPABASE
+
+    async function loadProfile() {
+
+        const { data, error } = await supabaseClient
+            .from('nutrition_profiles')
+            .select('*')
+            .eq('user_id', currentUser.id)
+            .maybeSingle();
+
+        if (error) throw error;
+
+        if (data) {
+
+            currentProfile = data;
+            currentGoal = data.goal || 'maintenance';
+
+            showResults();
+
+        } else {
+
+            currentProfile = null;
+
+            profileSection.classList.remove('hidden');
+            resultsSection.classList.add('hidden');
+
+        }
+
+    }
+
+    // FORM VALUES
+
+    function getFormValues() {
+
+        return {
+            age: Number(document.getElementById('age').value),
+
+            gender: document.getElementById('gender').value,
+
+            height_cm: Number(
+                document.getElementById('height').value
+            ),
+
+            weight_kg: Number(
+                document.getElementById('weight').value
+            ),
+
+            activity_level: document.getElementById('activity').value
+        };
+
+    }
+
+    // VALIDATE PROFILE
+
+    function validateProfile(profile) {
+
+        if (!Number.isInteger(profile.age) ||
+            profile.age < 18 ||
+            profile.age > 100) {
+            return 'Please enter an age between 18 and 100.';
+        }
+
+        if (!['male', 'female'].includes(profile.gender)) {
+            return 'Please select a gender.';
+        }
+
+        if (profile.height_cm < 100 || profile.height_cm > 250) {
+            return 'Please enter a valid height in centimeters.';
+        }
+
+        if (profile.weight_kg < 30 || profile.weight_kg > 300) {
+            return 'Please enter a valid weight in kilograms.';
+        }
+
+        if (!profile.activity_level) {
+            return 'Please select your activity level.';
+        }
+
+        return null;
+    }
+
+    // CALCULATE BMR AND TDEE
+
+    function calculateNutrition(profile, goal) {
+
+        const weight = Number(profile.weight_kg);
+        const height = Number(profile.height_cm);
+        const age = Number(profile.age);
+        const activity = Number(profile.activity_level);
+
+        // Mifflin-St Jeor Equation
+
+        let bmr;
+
+        if (profile.gender === 'male') {
+            bmr = (10 * weight) + (6.25 * height) -
+                (5 * age) + 5;
+        } else {
+            bmr = (10 * weight) + (6.25 * height) -
+                (5 * age) - 161;
+        }
+
+        const tdee = bmr * activity;
+
+        // GOAL ADJUSTMENTS
+
+        let calorieTarget;
+
+        if (goal === 'cutting') {
+            calorieTarget = tdee * 0.85;
+        } else if (goal === 'bulking') {
+            calorieTarget = tdee * 1.10;
+        } else {
+            calorieTarget = tdee;
+        }
+
+        calorieTarget = Math.round(calorieTarget);
+
+        // MACRO CALCULATIONS
+
+        // Protein: 1.8g per kg body weight
+        const protein = Math.round(weight * 1.8);
+
+        // Fat: 0.8g per kg body weight
+        const fat = Math.round(weight * 0.8);
+
+        const proteinKcal = protein * 4;
+        const fatKcal = fat * 9;
+
+        // Remaining calories go to carbohydrates
+        const remainingCalories =
+            calorieTarget - proteinKcal - fatKcal;
+
+        const carbs = Math.max(
+            0,
+            Math.round(remainingCalories / 4)
+        );
+
+        const carbsKcal = carbs * 4;
+
+        const totalMacroCalories =
+            proteinKcal + fatKcal + carbsKcal;
+
+        return {
+            bmr: Math.round(bmr),
+            tdee: Math.round(tdee),
+            calories: calorieTarget,
+
+            protein,
+            carbs,
+            fat,
+
+            proteinKcal,
+            carbsKcal,
+            fatKcal,
+
+            proteinPercentage:
+                totalMacroCalories > 0
+                ? (proteinKcal / totalMacroCalories) * 100
+                : 0,
+
+            carbsPercentage:
+                totalMacroCalories > 0
+                ? (carbsKcal / totalMacroCalories) * 100
+                : 0,
+
+            fatPercentage:
+                totalMacroCalories > 0
+                ? (fatKcal / totalMacroCalories) * 100
+                : 0
+        };
+
+    }
+
+    // SAVE PROFILE
+
+   
+profileForm.addEventListener('submit', async (event) => {
+
+    event.preventDefault();
+    clearMessage();
+
+    const profile = getFormValues();
+    const validationError = validateProfile(profile);
+
+    if (validationError) {
+        showMessage(validationError);
+        return;
+    }
+
+    const saveButton = document.getElementById('saveProfileBtn');
+
+    saveButton.disabled = true;
+    saveButton.textContent = 'Saving...';
+
+    try {
+
+        // Get the current authenticated Supabase session
+        const { data: sessionData, error: sessionError } =
+            await supabaseClient.auth.getSession();
+
+        if (sessionError) throw sessionError;
+
+        currentUser = sessionData.session?.user || null;
+
+        if (!currentUser) {
+            showMessage('Your session has expired. Please log in again.');
+            window.location.replace('login.html');
+            return;
+        }
+
+        // Prepare profile data only AFTER verifying the user
+        const payload = {
+            user_id: currentUser.id,
+            age: profile.age,
+            gender: profile.gender,
+            height_cm: profile.height_cm,
+            weight_kg: profile.weight_kg,
+            activity_level: profile.activity_level,
+            goal: currentGoal,
+            updated_at: new Date().toISOString()
+        };
+
+        // Save profile to Supabase
+        const { data, error } = await supabaseClient
+            .from('nutrition_profiles')
+            .upsert(payload, {
+                onConflict: 'user_id'
+            })
+            .select()
+            .single();
+
+        if (error) throw error;
+
+        if (!data) {
+            throw new Error('Supabase did not return the saved profile.');
+        }
+
+        currentProfile = data;
+        currentGoal = data.goal || 'maintenance';
+        isEditing = false;
+
+        showResults();
+
+        showMessage(
+            'Your body profile has been saved successfully!',
+            'success'
+        );
+
+    } catch (error) {
+
+        console.error('Profile save error:', error);
+
+        showMessage(
+            'Unable to save your profile: ' + error.message
+        );
+
+    } finally {
+
+        saveButton.disabled = false;
+        saveButton.textContent = isEditing
+            ? 'Update & Recalculate'
+            : 'Calculate My Nutrition Goals';
+
+    }
+
+});
+
+
+    // SHOW RESULTS
+
+    function showResults() {
+
+        if (!currentProfile) return;
+
+        profileSection.classList.add('hidden');
+        resultsSection.classList.remove('hidden');
+
+        const genderLabel =
+            currentProfile.gender === 'female'
+            ? 'Female'
+            : 'Male';
+
+        document.getElementById('profileSummaryText').textContent =
+            `${currentProfile.age} years • ${currentProfile.height_cm} cm • ${currentProfile.weight_kg} kg • ${genderLabel}`;
+
+        updateGoalDisplay();
+    }
+
+    // UPDATE GOAL DISPLAY
+
+    function updateGoalDisplay() {
+
+        const result = calculateNutrition(
+            currentProfile,
+            currentGoal
+        );
+
+        document.getElementById('calorieResult').textContent =
+            result.calories.toLocaleString();
+
+        document.getElementById('proteinResult').textContent =
+            result.protein;
+
+        document.getElementById('carbsResult').textContent =
+            result.carbs;
+
+        document.getElementById('fatResult').textContent =
+            result.fat;
+
+        document.getElementById('proteinCalories').textContent =
+            result.proteinKcal + ' kcal';
+
+        document.getElementById('carbsCalories').textContent =
+            result.carbsKcal + ' kcal';
+
+        document.getElementById('fatCalories').textContent =
+            result.fatKcal + ' kcal';
+
+        document.getElementById('proteinBar').style.width =
+            result.proteinPercentage + '%';
+
+        document.getElementById('carbsBar').style.width =
+            result.carbsPercentage + '%';
+
+        document.getElementById('fatBar').style.width =
+            result.fatPercentage + '%';
+
+        document.getElementById('bmrResult').textContent =
+            result.bmr.toLocaleString() + ' kcal';
+
+        document.getElementById('tdeeResult').textContent =
+            result.tdee.toLocaleString() + ' kcal';
+
+        const goalDescriptions = {
+            maintenance:
+                'Estimated calories to maintain your current weight.',
+
+            cutting:
+                'Estimated calories with a moderate 15% deficit.',
+
+            bulking:
+                'Estimated calories with a moderate 10% surplus.'
+        };
+
+        const goalLabels = {
+            maintenance: 'MAINTENANCE CALORIE TARGET',
+            cutting: 'CUTTING CALORIE TARGET',
+            bulking: 'BULKING CALORIE TARGET'
+        };
+
+        document.getElementById('goalResultLabel').textContent =
+            goalLabels[currentGoal];
+
+        document.getElementById('goalDescription').textContent =
+            goalDescriptions[currentGoal];
+
+        // Highlight selected goal
+
+        document.querySelectorAll('.goal-option').forEach(button => {
+
+            button.classList.toggle(
+                'active',
+                button.dataset.goal === currentGoal
+            );
+
+        });
+
+    }
+    // SAVE SELECTED FITNESS GOAL
+    document.querySelectorAll('.goal-option').forEach((button) => {
+        button.addEventListener('click', async () => {
+            if (!currentUser || !currentProfile) return;
+
+            const selectedGoal = button.dataset.goal;
+            if (!['maintenance', 'cutting', 'bulking'].includes(selectedGoal)) return;
+
+            currentGoal = selectedGoal;
+            updateGoalDisplay();
+
+            const { data, error } = await supabaseClient
+                .from('nutrition_profiles')
+                .update({ goal: selectedGoal, updated_at: new Date().toISOString() })
+                .eq('user_id', currentUser.id)
+                .select()
+                .single();
+
+            if (error) {
+                console.error('Goal update error:', error);
+                showMessage('Your goal changed on screen, but could not be saved: ' + error.message);
+                return;
+            }
+
+            currentProfile = data;
+        });
+    });
+
+    // EDIT PROFILE
+    document.getElementById('editProfileBtn').addEventListener('click', () => {
+        if (!currentProfile) return;
+
+        document.getElementById('age').value = currentProfile.age;
+        document.getElementById('gender').value = currentProfile.gender;
+        document.getElementById('height').value = currentProfile.height_cm;
+        document.getElementById('weight').value = currentProfile.weight_kg;
+        document.getElementById('activity').value = String(currentProfile.activity_level);
+
+        isEditing = true;
+        document.getElementById('formTitle').textContent = 'Update your body stats.';
+        document.getElementById('formDescription').textContent = 'Update your details to recalculate your nutrition goals.';
+        document.getElementById('saveProfileBtn').textContent = 'Update & Recalculate';
+        document.getElementById('cancelEditBtn').classList.remove('hidden');
+        profileSection.classList.remove('hidden');
+        resultsSection.classList.add('hidden');
+        profileSection.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // CANCEL PROFILE EDIT
+    document.getElementById('cancelEditBtn').addEventListener('click', () => {
+        isEditing = false;
+        profileForm.reset();
+        document.getElementById('formTitle').textContent = "Let's get to know your body.";
+        document.getElementById('formDescription').textContent = 'Enter your details to calculate your estimated daily calorie and macro requirements.';
+        document.getElementById('saveProfileBtn').textContent = 'Calculate My Nutrition Goals';
+        document.getElementById('cancelEditBtn').classList.add('hidden');
+        clearMessage();
+        profileSection.classList.add('hidden');
+        resultsSection.classList.remove('hidden');
+        updateGoalDisplay();
+    });
+
+    // LOCAL DATE (avoids UTC date shifts)
+    function getLocalDate() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    function showFoodMessage(text, type = 'error') {
+        const foodMessage = document.getElementById('foodMessage');
+        foodMessage.textContent = text;
+        foodMessage.className = 'message ' + type;
+    }
+
+    // LOAD TODAY'S FOOD ENTRIES
+    async function loadFoodLogs() {
+        if (!currentUser) return;
+
+        const foodList = document.getElementById('foodList');
+        foodList.innerHTML = '<p class="food-empty">Loading your food log...</p>';
+
+        const { data, error } = await supabaseClient
+            .from('food_logs')
+            .select('id, food_name, meal_type, calories, protein, carbs, fat, logged_on, created_at')
+            .eq('user_id', currentUser.id)
+            .eq('logged_on', getLocalDate())
+            .order('created_at', { ascending: false });
+
+        if (error) {
+            console.error('Food log load error:', error);
+            foodList.innerHTML = '<p class="food-empty">Unable to load food entries. Check the food_logs table and its RLS policies.</p>';
+            showFoodMessage('Could not load food logs: ' + error.message);
+            return;
+        }
+
+        const foods = data || [];
+        const totals = foods.reduce((sum, food) => {
+            sum.calories += Number(food.calories) || 0;
+            sum.protein += Number(food.protein) || 0;
+            sum.carbs += Number(food.carbs) || 0;
+            sum.fat += Number(food.fat) || 0;
+            return sum;
+        }, { calories: 0, protein: 0, carbs: 0, fat: 0 });
+
+        document.getElementById('loggedCalories').textContent = Math.round(totals.calories).toLocaleString() + ' kcal';
+        document.getElementById('loggedProtein').textContent = totals.protein.toFixed(1).replace(/\.0$/, '') + ' g';
+        document.getElementById('loggedCarbs').textContent = totals.carbs.toFixed(1).replace(/\.0$/, '') + ' g';
+        document.getElementById('loggedFat').textContent = totals.fat.toFixed(1).replace(/\.0$/, '') + ' g';
+
+        if (!foods.length) {
+            foodList.innerHTML = '<p class="food-empty">No foods logged yet. Add your first meal above.</p>';
+            return;
+        }
+
+        foodList.innerHTML = '';
+        foods.forEach((food) => {
+            const entry = document.createElement('div');
+            entry.className = 'food-entry';
+
+            const details = document.createElement('div');
+            const name = document.createElement('div');
+            name.className = 'food-entry-name';
+            name.textContent = food.food_name;
+
+            const meal = document.createElement('div');
+            meal.className = 'food-entry-meal';
+            meal.textContent = food.meal_type;
+
+            const macros = document.createElement('div');
+            macros.className = 'food-entry-macros';
+            macros.textContent = `${Number(food.calories).toFixed(0)} kcal · P ${food.protein}g · C ${food.carbs}g · F ${food.fat}g`;
+
+            details.append(name, meal, macros);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.type = 'button';
+            deleteButton.className = 'delete-food-btn';
+            deleteButton.textContent = 'Delete';
+            deleteButton.addEventListener('click', () => deleteFood(food.id));
+
+            entry.append(details, deleteButton);
+            foodList.appendChild(entry);
+        });
+    }
+
+    // SAVE FOOD ENTRY
+    document.getElementById('foodForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (!currentUser) {
+            showFoodMessage('Please log in again to save food.');
+            return;
+        }
+
+        const saveButton = document.getElementById('saveFoodBtn');
+        const payload = {
+            user_id: currentUser.id,
+            food_name: document.getElementById('foodName').value.trim(),
+            meal_type: document.getElementById('mealType').value,
+            calories: Number(document.getElementById('foodCalories').value),
+            protein: Number(document.getElementById('foodProtein').value),
+            carbs: Number(document.getElementById('foodCarbs').value),
+            fat: Number(document.getElementById('foodFat').value),
+            logged_on: getLocalDate()
+        };
+
+        if (!payload.food_name || Object.values(payload).some(value => value === '' || (typeof value === 'number' && (!Number.isFinite(value) || value < 0)))) {
+            showFoodMessage('Please enter a food name and valid non-negative nutrition values.');
+            return;
+        }
+
+        saveButton.disabled = true;
+        saveButton.textContent = 'Saving...';
+
+        const { error } = await supabaseClient.from('food_logs').insert(payload);
+
+        saveButton.disabled = false;
+        saveButton.textContent = '+ Save Food';
+
+        if (error) {
+            console.error('Food save error:', error);
+            showFoodMessage('Unable to save food: ' + error.message);
+            return;
+        }
+
+        document.getElementById('foodForm').reset();
+        showFoodMessage('Food entry saved!', 'success');
+        await loadFoodLogs();
+    });
+
+    // DELETE FOOD ENTRY
+    async function deleteFood(foodId) {
+        if (!currentUser || !foodId) return;
+        const confirmed = window.confirm('Delete this food entry?');
+        if (!confirmed) return;
+
+        const { error } = await supabaseClient
+            .from('food_logs')
+            .delete()
+            .eq('id', foodId)
+            .eq('user_id', currentUser.id);
+
+        if (error) {
+            console.error('Food delete error:', error);
+            showFoodMessage('Unable to delete food: ' + error.message);
+            return;
+        }
+
+        showFoodMessage('Food entry deleted.', 'success');
+        await loadFoodLogs();
+    }
+
+    // LOG OUT
+    async function logOut() {
+        const { error } = await supabaseClient.auth.signOut();
+        if (error) {
+            console.error('Logout error:', error);
+            showMessage('Unable to log out: ' + error.message);
+            return;
+        }
+        window.location.replace('login.html');
+    }
+
+    document.getElementById('logoutBtn').addEventListener('click', logOut);
+    document.getElementById('mobileLogout').addEventListener('click', logOut);
+
+    // AUTHENTICATION + PAGE INITIALIZATION
+    async function initialize() {
+        try {
+            const { data, error } = await supabaseClient.auth.getSession();
+            if (error) throw error;
+
+            currentUser = data.session?.user || null;
+            if (!currentUser) {
+                window.location.replace('login.html');
+                return;
+            }
+
+            displayUser(currentUser);
+            await loadProfile();
+            if (currentProfile) {
+                await loadFoodLogs();
+            }
+        } catch (error) {
+            console.error('Nutrition page initialization error:', error);
+            showMessage('Unable to load your nutrition page: ' + error.message);
+        }
+    }
+
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+        if (event === 'SIGNED_OUT') {
+            window.location.replace('login.html');
+        } else if (session?.user) {
+            currentUser = session.user;
+            displayUser(currentUser);
+        }
+    });
+
+    initialize();
+
+})();
+</script>
+
+<script>
+// Keep REPSYNC online presence active across all authenticated app pages.
+(()=>{const sb=window.supabaseClient;if(!sb)return;let presenceChannel=null;sb.auth.getSession().then(({data,error})=>{if(error||!data.session)return;const uid=data.session.user.id;presenceChannel=sb.channel('repsync-active-users',{config:{presence:{key:uid}}});presenceChannel.subscribe(async status=>{if(status==='SUBSCRIBED'){try{await presenceChannel.track({user_id:uid,online_at:new Date().toISOString()})}catch(e){console.warn('Could not update REPSYNC presence',e)}}});window.addEventListener('pagehide',()=>{if(presenceChannel)sb.removeChannel(presenceChannel)},{once:true})}).catch(e=>console.warn('REPSYNC presence unavailable',e));})();
+</script>
+
+<script>
+// Display the founder designation from the shared Supabase profile record.
+(async()=>{try{const sb=window.supabaseClient;if(!sb)return;const {data:{session}}=await sb.auth.getSession();if(!session)return;const targetId=new URLSearchParams(location.search).get('id')||session.user.id;const {data:profile,error}=await sb.from('profiles').select('full_name,is_founder').eq('id',targetId).maybeSingle();if(error)throw error;if(!profile?.is_founder)return;const badge=document.createElement('span');badge.className='founder-badge';badge.textContent='★ FOUNDER';badge.setAttribute('aria-label','REPSYNC Founder');const nameEl=document.getElementById('fullName')||document.getElementById('sideName')||document.getElementById('sidebarName');if(nameEl){nameEl.appendChild(badge.cloneNode(true));}for(const id of ['sideName','sidebarName','welcomeName','fullName']){const el=document.getElementById(id);if(el&&el!==nameEl&&!el.querySelector('.founder-badge'))el.appendChild(badge.cloneNode(true));}const role=document.querySelector('.profile-info span');if(role)role.textContent='REPSYNC Founder';}catch(e){console.warn('Founder badge could not be loaded:',e.message)}})();
+</script>
+<nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+<a class="mobile-nav-link" href="dashboard.html"><span class="mobile-nav-icon">⌂</span><span>Dashboard</span></a>
+<a class="mobile-nav-link active" href="nutrition.html" aria-current="page"><span class="mobile-nav-icon">◉</span><span>Nutrition</span></a>
+<a class="mobile-nav-link" href="workout-logs.html"><span class="mobile-nav-icon">↗</span><span>Workouts</span></a>
+<a class="mobile-nav-link" href="muscle-targets.html"><span class="mobile-nav-icon">◎</span><span>Feed</span></a>
+<a class="mobile-nav-link" href="friends.html"><span class="mobile-nav-icon">♧</span><span>Friends</span></a>
+<a class="mobile-nav-link" href="my-profile.html"><span class="mobile-nav-icon">●</span><span>Profile</span></a>
+</nav>
+</body>
+</html>

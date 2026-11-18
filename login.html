@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F65100">
+  <title>REPSYNC – Login / Sign Up</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --orange: #F65100;
+      --orange-hover: #D94300;
+      --black: #151515;
+      --gray: #777777;
+      --body: 'Instrument Sans', sans-serif;
+      --display: 'Bricolage Grotesque', sans-serif;
+      --brand: 'Anton', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; }
+    html { scroll-behavior: smooth; }
+    body { min-height: 100vh; font-family: var(--body); color: var(--black); background: #fff; }
+    header { display:flex; justify-content:space-between; align-items:center; padding:20px clamp(20px,6%,90px); background:var(--orange); color:#fff; }
+    .brand { color:#fff; text-decoration:none; font:30px var(--brand); letter-spacing:.04em; }
+    .back-home { color:#fff; text-decoration:none; font-size:14px; font-weight:600; }
+    .back-home:hover { color:#151515; }
+    .auth-container { min-height:calc(100vh - 76px); display:grid; grid-template-columns:1fr 1fr; }
+    .auth-banner { padding:60px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
+    .banner-logo { width:210px; height:210px; object-fit:contain; margin-bottom:35px; }
+    .auth-banner h1 { max-width:550px; font:800 clamp(38px,5vw,60px)/1.05 var(--display); letter-spacing:-.03em; margin-bottom:20px; }
+    .auth-banner p { max-width:400px; color:#555; font-size:17px; line-height:1.7; }
+    .auth-content { display:flex; justify-content:center; align-items:center; padding:50px 35px; }
+    .auth-box { width:100%; max-width:420px; }
+    .auth-box h2 { font:800 36px var(--display); margin-bottom:8px; }
+    .subtitle { color:var(--gray); font-size:15px; margin-bottom:30px; }
+    .form-group { margin-bottom:20px; }
+    .form-group label { display:block; font-size:14px; font-weight:600; margin-bottom:8px; }
+    .form-group input { width:100%; padding:15px; border:1px solid #ddd; border-radius:9px; background:#fff; font:15px var(--body); outline:none; transition:.2s; }
+    .form-group input:focus { border-color:var(--orange); box-shadow:0 0 0 3px rgba(246,81,0,.1); }
+    .form-group input::placeholder { color:#999; }
+    .form-options { display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:13px; margin-bottom:24px; }
+    .remember { display:flex; align-items:center; gap:7px; }
+    .remember input { accent-color:var(--orange); }
+    .form-options a,.switch a { color:var(--orange); text-decoration:none; font-weight:600; }
+    .form-options a:hover,.switch a:hover { text-decoration:underline; }
+    .submit-btn { width:100%; padding:15px; background:var(--orange); color:#fff; border:0; border-radius:9px; font:600 16px var(--body); cursor:pointer; transition:.2s; }
+    .submit-btn:hover { background:var(--orange-hover); }
+    .submit-btn:disabled { opacity:.65; cursor:not-allowed; }
+    .switch { text-align:center; margin-top:25px; font-size:14px; color:var(--gray); }
+    .auth-form { display:none; }
+    .auth-form.active { display:block; }
+    .message { min-height:20px; margin-top:15px; font-size:13px; line-height:1.6; color:var(--orange); }
+    .message.error { color:#D32F2F; }
+    .message.success { color:#238636; }
+    @media(max-width:800px) {
+      .auth-container { grid-template-columns:1fr; }
+      .auth-banner { padding:35px 20px 15px; }
+      .banner-logo { width:130px; height:130px; margin-bottom:15px; }
+      .auth-banner h1 { font-size:36px; }
+      .auth-banner p { font-size:14px; }
+      .auth-content { padding:35px 25px 50px; }
+    }
+    @media(max-width:480px) {
+      header { padding:18px 20px; }
+      .brand { font-size:25px; }
+      .auth-banner h1 { font-size:32px; }
+      .auth-box h2 { font-size:30px; }
+      .auth-content { padding:30px 22px 45px; }
+      .form-options { font-size:12px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="brand">REPSYNC</a>
+    <a href="index.html" class="back-home">← Back to Home</a>
+  </header>
+
+  <main class="auth-container">
+    <section class="auth-banner">
+      <img src="images/Glossy Orange Glass Lightning Bolt.png" alt="REPSYNC lightning bolt" class="banner-logo">
+      <h1>Stronger habits.<br>Smarter training.</h1>
+      <p>Your fitness journey starts here. Track your nutrition, plan your workouts, and stay consistent with REPSYNC.</p>
+    </section>
+
+    <section class="auth-content">
+      <div class="auth-box">
+        <form id="loginForm" class="auth-form" novalidate>
+          <h2>Welcome back!</h2>
+          <p class="subtitle">Log in to continue your fitness journey.</p>
+          <div class="form-group">
+            <label for="loginEmail">Email address</label>
+            <input type="email" id="loginEmail" placeholder="Enter your email" autocomplete="email" required>
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password" required>
+          </div>
+          <div class="form-options">
+            <label class="remember"><input type="checkbox" id="rememberMe" checked> Remember me</label>
+            <a href="forgot-password.html">Forgot password?</a>
+          </div>
+          <button type="submit" class="submit-btn">Log In</button>
+          <p class="switch">Don't have an account? <a href="#signup" id="showSignup">Sign up</a></p>
+        </form>
+
+        <form id="signupForm" class="auth-form" novalidate>
+          <h2>Create an account</h2>
+          <p class="subtitle">Start building better fitness habits today.</p>
+          <div class="form-group">
+            <label for="signupName">Full name</label>
+            <input type="text" id="signupName" placeholder="Enter your full name" autocomplete="name" required>
+          </div>
+          <div class="form-group">
+            <label for="signupEmail">Email address</label>
+            <input type="email" id="signupEmail" placeholder="Enter your email" autocomplete="email" required>
+          </div>
+          <div class="form-group">
+            <label for="signupPassword">Password</label>
+            <input type="password" id="signupPassword" placeholder="Create a password (at least 8 characters)" minlength="8" autocomplete="new-password" required>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm password</label>
+            <input type="password" id="confirmPassword" placeholder="Confirm your password" minlength="8" autocomplete="new-password" required>
+          </div>
+          <button type="submit" class="submit-btn">Create Account</button>
+          <p class="switch">Already have an account? <a href="#login" id="showLogin">Log in</a></p>
+        </form>
+        <p id="formMessage" class="message" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Load the Supabase library, then your shared project configuration. -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="images/js/supabase.js"></script>
+
+  <script>
+    (() => {
+      const loginForm = document.getElementById('loginForm');
+      const signupForm = document.getElementById('signupForm');
+      const formMessage = document.getElementById('formMessage');
+
+      function showMessage(message, type = '') {
+        formMessage.textContent = message;
+        formMessage.className = `message ${type}`.trim();
+      }
+
+      function showForm(which, updateUrl = true) {
+        loginForm.classList.toggle('active', which === 'login');
+        signupForm.classList.toggle('active', which === 'signup');
+        showMessage('');
+        if (updateUrl && location.hash !== `#${which}`) history.pushState(null, '', `#${which}`);
+      }
+
+      function getClient() {
+        if (!window.supabaseClient) {
+          throw new Error('Supabase did not initialize. Check that images/js/supabase.js exists and loads correctly.');
+        }
+        return window.supabaseClient;
+      }
+
+      document.getElementById('showSignup').addEventListener('click', event => {
+        event.preventDefault(); showForm('signup');
+      });
+      document.getElementById('showLogin').addEventListener('click', event => {
+        event.preventDefault(); showForm('login');
+      });
+      window.addEventListener('popstate', () => showForm(location.hash === '#signup' ? 'signup' : 'login', false));
+      showForm(location.hash === '#signup' ? 'signup' : 'login', false);
+
+      async function checkExistingSession() {
+        try {
+          const { data, error } = await getClient().auth.getSession();
+          if (error) throw error;
+          if (data.session) window.location.replace('dashboard.html');
+        } catch (error) {
+          console.error('Session check failed:', error);
+          showMessage(error.message || 'Unable to check your login session.', 'error');
+        }
+      }
+      checkExistingSession();
+
+      signupForm.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (!signupForm.reportValidity()) return;
+        const name = document.getElementById('signupName').value.trim();
+        const email = document.getElementById('signupEmail').value.trim();
+        const password = document.getElementById('signupPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        if (password !== confirmPassword) return showMessage('Passwords do not match.', 'error');
+        if (password.length < 8) return showMessage('Password must be at least 8 characters.', 'error');
+
+        const button = signupForm.querySelector('.submit-btn');
+        button.disabled = true; button.textContent = 'Creating account...'; showMessage('');
+        try {
+          const { data, error } = await getClient().auth.signUp({
+            email,
+            password,
+            options: {
+              data: { full_name: name },
+              emailRedirectTo: `${window.location.origin}/login.html`
+            }
+          });
+          if (error) throw error;
+          if (data.session) {
+            showMessage('Account created successfully. Redirecting...', 'success');
+            window.location.replace('dashboard.html');
+          } else {
+            signupForm.reset();
+            showMessage('Account created! Check your email for the verification link. After verifying, return here and log in.', 'success');
+          }
+        } catch (error) {
+          showMessage(error.message || 'Unable to create your account.', 'error');
+        } finally {
+          button.disabled = false; button.textContent = 'Create Account';
+        }
+      });
+
+      loginForm.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (!loginForm.reportValidity()) return;
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        const button = loginForm.querySelector('.submit-btn');
+        button.disabled = true; button.textContent = 'Logging in...'; showMessage('');
+        try {
+          const { data, error } = await getClient().auth.signInWithPassword({ email, password });
+          if (error) throw error;
+          if (data.session) {
+            showMessage('Login successful. Redirecting...', 'success');
+            window.location.replace('dashboard.html');
+          } else {
+            showMessage('Login succeeded, but no active session was returned.', 'error');
+          }
+        } catch (error) {
+          showMessage(error.message || 'Unable to log in.', 'error');
+        } finally {
+          button.disabled = false; button.textContent = 'Log In';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
